@@ -21,17 +21,17 @@ public class UserRestController {
     }
 
     @GetMapping(value = "/users")
-    public List<Users> getAllStudents() {
+    public List<Users> getAllUser() {
         return userService.getAllUsers();
     }
 
     @PostMapping(value = "/users")
-    public Users addStudent(@Valid @RequestBody Users std) {
+    public Users addUser(@Valid @RequestBody Users std) {
         return userService.save(std);
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public String deleteStudent(@PathVariable("id") @Min(1) int id) {
+    public String deleteUser(@PathVariable("id") @Min(1) int id) {
         Users std = userService.findById(id)
                 .orElseThrow(() -> new UserRestException("Student with " + id + " is Not Found!"));
         userService.deleteById(std.getId());
@@ -39,12 +39,12 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/users/{id}")
-    public Users updateStudent(@PathVariable("id") @Min(1) int id, @Valid @RequestBody Users newstd) {
+    public Users updateUser(@PathVariable("id") @Min(1) int id, @Valid @RequestBody Users usr) {
         Users std = userService.findById(id)
                 .orElseThrow(() -> new UserRestException("Student with " + id + " is Not Found!"));
-        std.setName(newstd.getName());
-        std.setDepartment(newstd.getDepartment());
-        std.setEmail(newstd.getEmail());
+        std.setName(usr.getName());
+        std.setDepartment(usr.getDepartment());
+        std.setEmail(usr.getEmail());
         return userService.save(std);
     }
 }
