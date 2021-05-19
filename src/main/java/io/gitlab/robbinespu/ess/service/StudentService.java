@@ -2,7 +2,6 @@ package io.gitlab.robbinespu.ess.service;
 
 import io.gitlab.robbinespu.ess.model.Student;
 import io.gitlab.robbinespu.ess.repo.StudentRepo;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class StudentService implements IStudentService{
 
     @Override
     public Optional<Student> findById(int id) {
-        return Optional.empty();
+        return studentRepo.findById(id);
     }
 
     @Override
