@@ -20,7 +20,7 @@ public class StudentService implements IStudentService{
 
     @Override
     public List<Student> getAllStudents() {
-        return null;
+        return studentRepo.findAll();
     }
 
     @Override
@@ -30,16 +30,16 @@ public class StudentService implements IStudentService{
 
     @Override
     public Optional<Student> findByEmail(String email) {
-        return Optional.empty();
+        return studentRepo.findByEmail(email);
     }
 
     @Override
     public Student save(Student std) {
-        return null;
+        return studentRepo.save(std);
     }
 
     @Override
     public void deleteById(int id) {
-
+        studentRepo.deleteById(id);
     }
 }

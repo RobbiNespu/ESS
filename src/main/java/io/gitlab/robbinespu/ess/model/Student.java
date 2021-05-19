@@ -17,7 +17,7 @@ import javax.validation.constraints.NotEmpty;
 public class Student {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private String id;
+    private int id;
     @NotEmpty(message = "name is required")
     private String name;
     private String department;
