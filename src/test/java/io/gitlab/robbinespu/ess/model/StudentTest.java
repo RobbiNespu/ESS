@@ -21,7 +21,7 @@ class StudentTest {
     public void setNameBlank() {
         Student std = new Student();
         std.setName(null);
-        assertNotSame(null, std.getName());
+        assertEquals(null, std.getName());
     }
 
 }
