@@ -37,4 +37,14 @@ public class StudentRestController {
         studentservice.deleteById(std.getId());
         return "Student with ID :" + id + " is deleted";
     }
+
+    @PutMapping(value="/students/{id}")
+    public Student updateStudent(@PathVariable("id") @Min(1) int id, @Valid @RequestBody Student newstd) {
+        Student std = studentservice.findById(id)
+                .orElseThrow(()->new StudentRestException("Student with "+id+" is Not Found!"));
+        std.setName(newstd.getName());
+        std.setDepartment(newstd.getDepartment());
+        std.setEmail(newstd.getEmail());
+        return studentservice.save(std);
+    }
 }
