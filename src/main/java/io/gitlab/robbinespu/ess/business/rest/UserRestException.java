@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ResponseStatus(value = HttpStatus.NOT_FOUND)
 @Getter
 @Setter
-public class StudentRestException extends RuntimeException {
+public class UserRestException extends RuntimeException {
     private static final long serialVersionUID = 1L;
     private String message;
 
-    public StudentRestException(String message) {
+    public UserRestException(String message) {
         this.message = message;
     }
 
