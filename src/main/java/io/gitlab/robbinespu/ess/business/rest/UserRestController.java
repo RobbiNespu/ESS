@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -19,9 +20,10 @@ public class UserRestController {
     RoleService roleService;
 
     @Autowired
-    public UserRestController(UserService userService) {
+    public UserRestController(UserService userService,RoleService roleService ) {
         super();
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @GetMapping(value = "/users")
@@ -30,16 +32,20 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/users")
-    public Users addUser(@Valid @RequestBody Users std) {
-        if (std.getRolesID() == null) {
-            Roles roles = new Roles();
-            roles.setUsername(std.getUsername());
-            std.setRolesID(roles.getId());
-            roleService.save(roles);
-            System.out.println("ROB->> :" + roles.getUsername());
+    public Optional<Users> addUser(@Valid @RequestBody Users user) {
+        Roles roles = new Roles();
+        Users userDB = userService.save(user);
+        Long userId = userDB.getId();
 
-        }
-        return userService.save(std);
+        roles.setUserId(userDB.getId());
+        roles.setType("Student");
+        roles.setUserId(userDB.getId());
+
+        roles = roleService.save(roles);
+
+        System.out.println("ROB->> :" + userId +"/"+roles.getId());
+
+        return userService.findById(userId);
     }
 
     @DeleteMapping(value = "/users/{id}")
