@@ -7,21 +7,20 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Getter
+@Entity
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "role")
-public class Roles {
+@Table(name = "nodes")
+public class Nodes {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    private String type;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
-    private String form;
-
+    private int parent;
+    private int child;
+    private String parentName;
+    private String childName;
 }

@@ -15,8 +15,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users")
-public class Users {
+@Table(name = "forms")
+public class Forms {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -26,12 +26,5 @@ public class Users {
     @NotNull(message = "cannot be null")
     @NotBlank(message = "cannot be blank")
     private String name;
-    private String department;
-    @Column(nullable = true, name = "email")
-    private String email;
-    private String username;
-    private String password;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Roles roles;
+    private int form;
 }
