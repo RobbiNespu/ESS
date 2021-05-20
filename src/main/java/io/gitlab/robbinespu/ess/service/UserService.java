@@ -23,7 +23,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public Optional<Users> findById(int id) {
+    public Optional<Users> findById(Long id) {
         return userRepo.findById(id);
     }
 
@@ -38,7 +38,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Long id) {
         userRepo.deleteById(id);
     }
 }

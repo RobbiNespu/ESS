@@ -7,9 +7,9 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<Users, Integer> {
+public interface UserRepo extends JpaRepository<Users, Long> {
     // Query method
     Optional<Users> findByEmail(String email);
 
-    void deleteById(int id);
+    void deleteById(Long id);
 }

@@ -15,9 +15,10 @@ import javax.persistence.*;
 @Table(name = "role")
 public class Roles {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
+    @SequenceGenerator(name = "sess_generator", sequenceName = "ess_seq", initialValue = 1, allocationSize = 1)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
     private String type;
     @OneToOne
     @JoinColumn(name = "user_id")

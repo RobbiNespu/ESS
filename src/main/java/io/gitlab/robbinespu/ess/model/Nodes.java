@@ -16,9 +16,10 @@ import javax.persistence.*;
 public class Nodes {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
+    @SequenceGenerator(name = "sess_generator", sequenceName = "ess_seq", initialValue = 1, allocationSize = 1)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id;
     private int parent;
     private int child;
     private String parentName;

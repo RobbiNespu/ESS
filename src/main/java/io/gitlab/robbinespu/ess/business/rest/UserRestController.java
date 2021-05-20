@@ -31,7 +31,7 @@ public class UserRestController {
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public String deleteUser(@PathVariable("id") @Min(1) int id) {
+    public String deleteUser(@PathVariable("id") @Min(1) Long id) {
         Users std = userService.findById(id)
                 .orElseThrow(() -> new UserRestException("Student with " + id + " is Not Found!"));
         userService.deleteById(std.getId());
@@ -39,7 +39,7 @@ public class UserRestController {
     }
 
     @PutMapping(value = "/users/{id}")
-    public Users updateUser(@PathVariable("id") @Min(1) int id, @Valid @RequestBody Users usr) {
+    public Users updateUser(@PathVariable("id") @Min(1) Long id, @Valid @RequestBody Users usr) {
         Users std = userService.findById(id)
                 .orElseThrow(() -> new UserRestException("Student with " + id + " is Not Found!"));
         std.setName(usr.getName());
