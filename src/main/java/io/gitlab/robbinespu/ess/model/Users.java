@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @SequenceGenerator(name = "sess_generator", sequenceName = "ess_seq", initialValue = 1, allocationSize = 1)
+    @SequenceGenerator(name = "sess_generator", sequenceName = "ess_seq", initialValue = 10, allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
