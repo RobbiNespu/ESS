@@ -16,12 +16,11 @@ import javax.persistence.*;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
+    @SequenceGenerator(name = "ess_generator", sequenceName = "ess_generator", initialValue = 10)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     private String type;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
+    private String username;
     private String form;
 
 }

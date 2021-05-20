@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @SequenceGenerator(name = "sess_generator", sequenceName = "ess_seq", initialValue = 10, allocationSize = 1)
+    @SequenceGenerator(name = "ess_generator", sequenceName = "ess_generator", initialValue = 10)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
@@ -32,7 +32,6 @@ public class Users {
     private String email;
     private String username;
     private String password;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private Roles roles;
+
+    private Long rolesID;
 }

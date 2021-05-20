@@ -1,6 +1,8 @@
 package io.gitlab.robbinespu.ess.business.rest;
 
+import io.gitlab.robbinespu.ess.model.Roles;
 import io.gitlab.robbinespu.ess.model.Users;
+import io.gitlab.robbinespu.ess.service.RoleService;
 import io.gitlab.robbinespu.ess.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
+
     UserService userService;
+    RoleService roleService;
 
     @Autowired
     public UserRestController(UserService userService) {
@@ -27,6 +31,14 @@ public class UserRestController {
 
     @PostMapping(value = "/users")
     public Users addUser(@Valid @RequestBody Users std) {
+        if (std.getRolesID() == null) {
+            Roles roles = new Roles();
+            roles.setUsername(std.getUsername());
+            std.setRolesID(roles.getId());
+            roleService.save(roles);
+            System.out.println("ROB->> :" + roles.getUsername());
+
+        }
         return userService.save(std);
     }
 
