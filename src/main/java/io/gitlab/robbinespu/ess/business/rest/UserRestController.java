@@ -4,6 +4,7 @@ import io.gitlab.robbinespu.ess.model.Roles;
 import io.gitlab.robbinespu.ess.model.Users;
 import io.gitlab.robbinespu.ess.service.RoleService;
 import io.gitlab.robbinespu.ess.service.UserService;
+import io.gitlab.robbinespu.ess.util.ObjectToJsonObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +46,11 @@ public class UserRestController {
         roles.setType("Student");
         roles.setUserId(userDB.getId());
         roles = roleService.save(roles);
-        logger.info("ROB->> Registered {} and assigned role {}", userId, roles.getId());
+        ObjectToJsonObjectNode objectToJsonObjectNode = new ObjectToJsonObjectNode();
+        String jsonString = objectToJsonObjectNode.EntitiesToJson(userDB);
+        logger.info("ROB->> Registered {} and assigned role {} and {}", userId, roles.getId(), jsonString);
         //return userService.findById(userId);
-        return new ResponseEntity<Users>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")
