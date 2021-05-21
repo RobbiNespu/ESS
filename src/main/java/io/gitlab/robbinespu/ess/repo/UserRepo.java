@@ -8,11 +8,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<Users, Long> {
+public interface UserRepo extends JpaRepository<Users, String> {
     // Query method
     Optional<Users> findByEmail(String email);
 
-    void deleteById(Long id);
+    void deleteById(String id);
 
     @Query(value = "select nextval(ess_generator)", nativeQuery = true)
     public Long getNextValFromSeq();

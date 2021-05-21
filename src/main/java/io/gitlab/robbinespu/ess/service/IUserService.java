@@ -7,9 +7,14 @@ import java.util.Optional;
 
 public interface IUserService {
     List<Users> getAllUsers();
-    Optional<Users> findById(Long id);
+
+    Optional<Users> findById(String id);
+
     Optional<Users> findByEmail(String email);
+
     Users save(Users std);
-    void deleteById(Long id);
+
+    void deleteById(String id);
+
     long getNextValFromSeq();
 }

@@ -18,8 +18,8 @@ import javax.validation.constraints.NotNull;
 @Table(name = "forms")
 public class Forms {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @SequenceGenerator(name = "ess_generator", sequenceName = "ess_generator", initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_form")
+    @SequenceGenerator(name = "SEQ_form", sequenceName = "SEQ_form", initialValue = 1, allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 

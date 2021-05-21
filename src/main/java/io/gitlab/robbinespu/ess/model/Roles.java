@@ -15,12 +15,12 @@ import javax.persistence.*;
 @Table(name = "role")
 public class Roles {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @SequenceGenerator(name = "ess_generator", sequenceName = "ess_generator", initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_role")
+    @SequenceGenerator(name = "SEQ_role", sequenceName = "SEQ_role")
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     private String type;
-    private Long userId;
+    private String userId;
     private String form;
 
 }

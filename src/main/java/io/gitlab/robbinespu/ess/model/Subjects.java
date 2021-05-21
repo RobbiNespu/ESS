@@ -16,8 +16,8 @@ import javax.persistence.*;
 public class Subjects {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @SequenceGenerator(name = "ess_generator", sequenceName = "ess_generator", initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_subject")
+    @SequenceGenerator(name = "SEQ_subject", sequenceName = "SEQ_subject", initialValue = 1, allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 

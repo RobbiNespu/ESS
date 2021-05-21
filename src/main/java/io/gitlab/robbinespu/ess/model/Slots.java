@@ -17,8 +17,8 @@ import java.util.Date;
 public class Slots {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @SequenceGenerator(name = "ess_generator", sequenceName = "ess_generator", initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_slot")
+    @SequenceGenerator(name = "SEQ_slot", sequenceName = "SEQ_slot", initialValue = 1, allocationSize = 1)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
     private String name;
