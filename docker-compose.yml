@@ -4,10 +4,10 @@ services:
     image: mariadb
     restart: always
     environment:
-        MARIADB_ROOT_PASSWORD: root
-        MARIADB_USER: user
-        MARIADB_PASSWORD: 12345
-        MARIADB_DATABASE: springbootdb
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_USER: user
+      MARIADB_PASSWORD: 12345
+      MARIADB_DATABASE: springbootdb
     ports:
       - "9006:3306"
 
