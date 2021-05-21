@@ -1,9 +1,11 @@
 package io.gitlab.robbinespu.ess.model;
 
+import io.gitlab.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -18,14 +20,18 @@ public class Slots {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_slot")
-    @SequenceGenerator(name = "SEQ_slot", sequenceName = "SEQ_slot", initialValue = 1, allocationSize = 1)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+    @GenericGenerator(
+            name = "SEQ_slot",
+            strategy = "io.gitlab.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM, value = "50"),
+                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "slot_"),
+                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
+    private String id;
     private String name;
     private int classId;
     private int subjectId;
     private boolean booked;
     private boolean active;
     private Date date;
-
 }

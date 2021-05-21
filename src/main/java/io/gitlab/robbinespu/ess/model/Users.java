@@ -31,7 +31,6 @@ public class Users {
                     @Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "user_"),
                     @Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
     private String id;
-
     @NotEmpty(message = "name is required")
     @NotNull(message = "cannot be null")
     @NotBlank(message = "cannot be blank")
@@ -41,6 +40,5 @@ public class Users {
     private String email;
     private String username;
     private String password;
-
     private Long rolesID;
 }

@@ -1,24 +1,30 @@
 package io.gitlab.robbinespu.ess.business.rest;
 
+import io.gitlab.robbinespu.ess.model.Roles;
 import io.gitlab.robbinespu.ess.model.Users;
 import io.gitlab.robbinespu.ess.service.RoleService;
 import io.gitlab.robbinespu.ess.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class UserRestController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
+
     UserService userService;
     RoleService roleService;
 
     @Autowired
-    public UserRestController(UserService userService,RoleService roleService ) {
+    public UserRestController(UserService userService, RoleService roleService) {
         super();
         this.userService = userService;
         this.roleService = roleService;
@@ -30,16 +36,18 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/users")
-    public Optional<Users> addUser(@Valid @RequestBody Users user) {
-        //Roles roles = new Roles();
+    public ResponseEntity<Users> addUser(@Valid @RequestBody Users user) {
+        logger.debug("Parsed object: {}", user);
+        Roles roles = new Roles();
         Users userDB = userService.save(user);
         String userId = userDB.getId();
-        //roles.setUserId(userDB.getId());
-        //roles.setType("Student");
-        //roles.setUserId(userDB.getId());
-        //roles = roleService.save(roles);
-        //System.out.println("ROB->> :" + userId +"/"+roles.getId());
-        return userService.findById(userId);
+        roles.setUserId(userDB.getId());
+        roles.setType("Student");
+        roles.setUserId(userDB.getId());
+        roles = roleService.save(roles);
+        logger.info("ROB->> Registered {} and assigned role {}", userId, roles.getId());
+        //return userService.findById(userId);
+        return new ResponseEntity<Users>(user, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")
