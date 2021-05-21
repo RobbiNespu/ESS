@@ -1,17 +1,17 @@
-package io.gitlab.robbinespu.ess.model;
+package io.robbinespu.ess.model;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-class StudentTest {
+class UsersTest {
 
     @Test
     @DisplayName("Set name - String")
     public void setNameNotBlank() {
-        Student std = new Student();
+        Users std = new Users();
         std.setName("Ayam");
         assertEquals("Ayam", std.getName());
     }
@@ -19,9 +19,9 @@ class StudentTest {
     @Test
     @DisplayName("Set name - null")
     public void setNameBlank() {
-        Student std = new Student();
+        Users std = new Users();
         std.setName(null);
-        assertEquals(null, std.getName());
+        assertNull(std.getName());
     }
 
 }

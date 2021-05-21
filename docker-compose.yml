@@ -1,0 +1,18 @@
+version: '3.1'
+services:
+  mariadb:
+    image: mariadb
+    restart: always
+    environment:
+        MARIADB_ROOT_PASSWORD: root
+        MARIADB_USER: user
+        MARIADB_PASSWORD: 12345
+        MARIADB_DATABASE: springbootdb
+    ports:
+      - "9006:3306"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
