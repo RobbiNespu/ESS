@@ -21,25 +21,15 @@ import javax.validation.constraints.NotNull;
 @Table(name = "users")
 public class Users {
     @Id
-    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ess_generator")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "book_seq")
-//    @GenericGenerator(name = "ess_generator", strategy = "io.gitlab.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
-//            parameters = {
-//                    @Parameter(name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM, value = "50"),
-//                    @Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "B_"),
-//                    @Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%05d") })
-//    @Column(name = "id", updatable = false, nullable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_user")
+    @Column(name = "id", updatable = false, nullable = false)
     @GenericGenerator(
-            name = "book_seq",
-            strategy =
-                    "io.gitlab.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
+            name = "SEQ_user",
+            strategy = "io.gitlab.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
             parameters = {
-                    @Parameter(name =
-                            CustomSeqGeneratorIdForUser.INCREMENT_PARAM, value = "50"),
-                    @Parameter(name =
-                            CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "B_"),
-                    @Parameter(name =
-                            CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%05d")})
+                    @Parameter(name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM, value = "50"),
+                    @Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "user_"),
+                    @Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
     private String id;
 
     @NotEmpty(message = "name is required")
