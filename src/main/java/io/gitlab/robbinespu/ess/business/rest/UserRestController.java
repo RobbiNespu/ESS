@@ -1,5 +1,7 @@
 package io.gitlab.robbinespu.ess.business.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.gitlab.robbinespu.ess.model.Roles;
 import io.gitlab.robbinespu.ess.model.Users;
 import io.gitlab.robbinespu.ess.service.RoleService;
@@ -13,7 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -37,7 +41,7 @@ public class UserRestController {
     }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<Users> addUser(@Valid @RequestBody Users user) {
+    public ResponseEntity<Map> addUser(@Valid @RequestBody Users user) throws JsonProcessingException {
         logger.debug("Parsed object: {}", user);
         Roles roles = new Roles();
         Users userDB = userService.save(user);
@@ -47,10 +51,17 @@ public class UserRestController {
         roles.setUserId(userDB.getId());
         roles = roleService.save(roles);
         ObjectToJsonObjectNode objectToJsonObjectNode = new ObjectToJsonObjectNode();
-        String jsonString = objectToJsonObjectNode.EntitiesToJson(userDB);
-        logger.info("ROB->> Registered {} and assigned role {} and {}", userId, roles.getId(), jsonString);
-        //return userService.findById(userId);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        String userJson = objectToJsonObjectNode.EntitiesToJsonParent(userDB);
+        String roleJson = objectToJsonObjectNode.EntitiesToJsonParent(roles);
+        logger.info("ROB->> Registered {} and assigned role {}", userId, roles.getId());
+
+        Map<String, Object> parent = new ObjectMapper().readValue(userJson, HashMap.class);
+        Map<String, Object> child = new ObjectMapper().readValue(roleJson, HashMap.class);
+
+        parent.put("role", child);
+        String jsonString2 = objectToJsonObjectNode.EntitiesToJsonParent(parent);
+        logger.info("ROB->> json {}", jsonString2);
+        return new ResponseEntity<Map>(parent, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")

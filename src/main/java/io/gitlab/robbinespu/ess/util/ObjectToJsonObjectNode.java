@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import java.io.IOException;
 
 public class ObjectToJsonObjectNode {
-    public String EntitiesToJson(Object object) {
+    public String EntitiesToJsonParent(Object object) {
         String json = null;
         try {
             ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
