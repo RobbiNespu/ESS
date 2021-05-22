@@ -28,5 +28,8 @@ public class Roles {
     private String id;
     private String type;
     private String userId;
-    private String form;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "forms_Id")
+    private Forms forms;
 }

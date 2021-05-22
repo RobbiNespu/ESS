@@ -49,6 +49,11 @@ public class UserRestController {
             logger.error("ROB->> user.getRoles are NULL");
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
+        if (user.getRoles().getForms() == null) {
+            map.put("status", "FAILED");
+            logger.error("ROB->> user.getRoles().getForms() .getName() are NULL");
+            return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
+        }
         Users userDB = userService.save(user);
         String userJson = objectToJsonObjectNode.EntitiesToJsonParent(userDB);
         map = new ObjectMapper().readValue(userJson, HashMap.class);
