@@ -2,7 +2,6 @@ package io.robbinespu.ess.business.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.robbinespu.ess.model.Roles;
 import io.robbinespu.ess.model.Users;
 import io.robbinespu.ess.service.RoleService;
 import io.robbinespu.ess.service.UserService;
@@ -42,26 +41,20 @@ public class UserRestController {
 
     @PostMapping(value = "/users")
     public ResponseEntity<Map> addUser(@Valid @RequestBody Users user) throws JsonProcessingException {
-        logger.debug("Parsed object: {}", user);
-        Roles roles = new Roles();
-        Users userDB = userService.save(user);
-        String userId = userDB.getId();
-        roles.setUserId(userDB.getId());
-        roles.setType("Student");
-        roles.setUserId(userDB.getId());
-        roles = roleService.save(roles);
         ObjectToJsonObjectNode objectToJsonObjectNode = new ObjectToJsonObjectNode();
+        HashMap<String, String> map = new HashMap<>();
+        logger.debug("Parsed object: {}", user);
+        if (user.getRoles() == null) {
+            map.put("status", "FAILED");
+            logger.error("ROB->> user.getRoles are NULL");
+            return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
+        }
+        Users userDB = userService.save(user);
         String userJson = objectToJsonObjectNode.EntitiesToJsonParent(userDB);
-        String roleJson = objectToJsonObjectNode.EntitiesToJsonParent(roles);
-        logger.info("ROB->> Registered {} and assigned role {}", userId, roles.getId());
-
-        Map<String, Object> parent = new ObjectMapper().readValue(userJson, HashMap.class);
-        Map<String, Object> child = new ObjectMapper().readValue(roleJson, HashMap.class);
-
-        parent.put("role", child);
-        String userRoleJson = objectToJsonObjectNode.EntitiesToJsonParent(parent);
-        logger.info("ROB->> json {}", userRoleJson);
-        return new ResponseEntity<Map>(parent, HttpStatus.OK);
+        map = new ObjectMapper().readValue(userJson, HashMap.class);
+        map.put("status", "OK");
+        logger.info("ROB->> Registered {} and assigned role {}", userDB.getId(), userDB.getRoles().getId());
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/users/{id}")
