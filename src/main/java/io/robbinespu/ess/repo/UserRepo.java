@@ -14,6 +14,6 @@ public interface UserRepo extends JpaRepository<Users, String> {
 
     void deleteById(String id);
 
-    @Query(value = "select nextval(ess_generator)", nativeQuery = true)
+    @Query(value = "select nextval(SEQ_user)", nativeQuery = true)
     public Long getNextValFromSeq();
 }

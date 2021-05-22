@@ -49,6 +49,11 @@ public class UserRestController {
             logger.error("ROB->> user.getRoles are NULL");
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
+        if (user.getRoles().getForms() == null) {
+            map.put("status", "FAILED");
+            logger.error("ROB->> user.getRoles().getForms() .getName() are NULL");
+            return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
+        }
         Users userDB = userService.save(user);
         String userJson = objectToJsonObjectNode.EntitiesToJsonParent(userDB);
         map = new ObjectMapper().readValue(userJson, HashMap.class);
@@ -60,7 +65,7 @@ public class UserRestController {
     @DeleteMapping(value = "/users/{id}")
     public String deleteUser(@PathVariable("id") String id) {
         Users std = userService.findById(id)
-                .orElseThrow(() -> new UserRestException("Student with " + id + " is Not Found!"));
+                .orElseThrow(() -> new CustomRestException("Student with " + id + " is Not Found!"));
         userService.deleteById(std.getId());
         return "Student with ID :" + id + " is deleted";
     }
@@ -68,7 +73,7 @@ public class UserRestController {
     @PutMapping(value = "/users/{id}")
     public Users updateUser(@PathVariable("id") String id, @Valid @RequestBody Users usr) {
         Users std = userService.findById(id)
-                .orElseThrow(() -> new UserRestException("Student with " + id + " is Not Found!"));
+                .orElseThrow(() -> new CustomRestException("Student with " + id + " is Not Found!"));
         std.setName(usr.getName());
         std.setDepartment(usr.getDepartment());
         std.setEmail(usr.getEmail());
