@@ -40,5 +40,7 @@ public class Users {
     private String email;
     private String username;
     private String password;
-    private Long rolesID;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rolesId")
+    private Roles roles;
 }
