@@ -15,22 +15,19 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "role")
-public class Roles extends DbAuditModels {
+@Table(name = "class_subject_lists")
+public class ClassSubjectList extends DbAuditModels {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_role")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_class_subject_lists")
     @GenericGenerator(
-            name = "SEQ_role",
+            name = "SEQ_class_subject_lists",
             strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
             parameters = {
                     @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM, value = "50"),
-                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "role_"),
+                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "class_subject_lists_"),
                     @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
     private String id;
-    private String type;
-    private String userId;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "forms_Id")
-    private Forms forms;
+    private String formId;
+    private String subjectId;
+    private String teacherName;
 }
