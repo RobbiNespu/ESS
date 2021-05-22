@@ -1,0 +1,23 @@
+curl --location --request POST 'http://localhost:9000/api/users/' \
+--header 'Authorization: Basic YWRtaW46YWRtaW4=' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: JSESSIONID=738277F72B16339C7FF3BE4E6DD77435' \
+--data-raw '{
+    "name": "ayam",
+    "email": "dev@test.com",
+    "roles": {
+        "type": "student",
+        "form": "1"
+    }
+}'
+
+--------------------------
+POST: http://localhost:9000/api/users/
+{
+    "name": "ayam",
+    "email": "dev@test.com",
+    "roles": {
+        "type": "student",
+        "form": "1"
+    }
+}
