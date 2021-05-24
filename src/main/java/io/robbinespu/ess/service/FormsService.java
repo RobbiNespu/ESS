@@ -5,6 +5,8 @@ import io.robbinespu.ess.repo.FormRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class FormsService implements IFormsService {
     public final FormRepo formRepo;
@@ -17,5 +19,10 @@ public class FormsService implements IFormsService {
     @Override
     public Forms save(Forms forms) {
         return formRepo.save(forms);
+    }
+
+    @Override
+    public Optional<Forms> findById(String id) {
+        return formRepo.findById(id);
     }
 }

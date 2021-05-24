@@ -10,14 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -32,7 +30,7 @@ public class FormRestController {
     }
 
     @PostMapping(value = "/forms")
-    public ResponseEntity<Map> addUser(@Valid @RequestBody Forms forms) throws JsonProcessingException {
+    public ResponseEntity<Map> addForms(@Valid @RequestBody Forms forms) throws JsonProcessingException {
         ObjectToJsonObjectNode objectToJsonObjectNode = new ObjectToJsonObjectNode();
         HashMap map = new HashMap<>();
         logger.debug("Parsed object: {}", forms);
@@ -47,5 +45,10 @@ public class FormRestController {
         map.put("status", "OK");
         logger.info("ROB->> Registered {} and assigned role {}", formsDB.getId(), formJson);
         return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/forms/{id}")
+    public Optional<Forms> getFormsbyId(@PathVariable String id) {
+        return formsService.findById(id);
     }
 }

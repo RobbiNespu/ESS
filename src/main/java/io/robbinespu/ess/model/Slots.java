@@ -1,6 +1,7 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
+import io.robbinespu.ess.util.DbAuditModels;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "slots")
-public class Slots {
+public class Slots extends DbAuditModels {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_slot")
     @GenericGenerator(

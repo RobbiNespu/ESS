@@ -1,6 +1,7 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
+import io.robbinespu.ess.util.DbAuditModels;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Entity
 @Table(name = "forms")
-public class Forms {
+public class Forms extends DbAuditModels {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_form")
     @GenericGenerator(
