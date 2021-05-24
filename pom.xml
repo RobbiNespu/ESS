@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2021-2021
+  ~
+  ~ Project :  Advance Software Development - Exam Scheduling System with DFS
+  ~ Class name :  /home/robbi/Documents/workplace/java/ESS/pom.xml
+  ~ Last modified:  5/22/21, 1:36 PM
+  ~ User : Robbi Nespu < robbinespu@gmail.com >
+  ~
+  ~ License : https://github.com/RobbiNespu/ESS/LICENSE
+  -->
+
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
