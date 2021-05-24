@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2021-2021
+ *
+ * Project :  Advance Software Development - Exam Scheduling System with DFS
+ * Class name :  io.robbinespu.ess.model.Subjects
+ * Last modified:  5/22/21, 4:36 PM
+ * User : Robbi Nespu < robbinespu@gmail.com >
+ *
+ * License : https://github.com/RobbiNespu/ESS/LICENSE
+ */
+
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
