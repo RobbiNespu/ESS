@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.util.RestControllerHelper
- * Last modified:  5/25/21, 3:36 PM
+ * Last modified:  5/25/21, 6:27 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -32,5 +32,13 @@ public class RestControllerHelper implements Serializable {
         map.put("reason", reason);
         logger.debug("FAILED -> {}", reason);
         return map;
+    }
+
+    public static <T> T getNestedValue(Map map, String... keys) {
+        Object value = map;
+        for (String key : keys) {
+            value = ((Map) value).get(key);
+        }
+        return (T) value;
     }
 }
