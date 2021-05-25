@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/22/21, 3:14 PM
+ * Last modified:  5/25/21, 12:01 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -17,6 +17,7 @@ import io.robbinespu.ess.model.Users;
 import io.robbinespu.ess.service.RoleService;
 import io.robbinespu.ess.service.UserService;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
+import io.robbinespu.ess.util.RestControllerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
-public class UserRestController {
+public class UserRestController extends RestControllerHelper {
 
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
@@ -66,7 +67,7 @@ public class UserRestController {
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
         Users userDB = userService.save(user);
-        String userJson = objectToJsonObjectNode.EntitiesToJsonParent(userDB);
+        String userJson = ConvertToJsonString(userDB);
         map = new ObjectMapper().readValue(userJson, HashMap.class);
         map.put("status", "OK");
         logger.info("ROB->> Registered {} and assigned role {}", userDB.getId(), userDB.getRoles().getId());

@@ -1,4 +1,15 @@
 #!/bin/bash
+#
+# Copyright (c) 2021-2021
+#
+# Project :  Advance Software Development - Exam Scheduling System with DFS
+# Class name :  /home/robbi/Documents/workplace/java/ESS/docker_cleanup.sh
+# Last modified:  5/24/21, 11:14 AM
+# User : Robbi Nespu < robbinespu@gmail.com >
+#
+# License : https://github.com/RobbiNespu/ESS/LICENSE
+#
+
 # Origin : https://gist.github.com/beeman/aca41f3ebd2bf5efbd9d7fef09eac54d#gistcomment-3735369
 # Creadit:  Richard Abrich (abrichr)
 echo "Listing containers..."

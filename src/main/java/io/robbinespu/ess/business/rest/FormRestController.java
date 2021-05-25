@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.FormRestController
- * Last modified:  5/22/21, 6:17 PM
+ * Last modified:  5/25/21, 12:04 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.robbinespu.ess.model.Forms;
 import io.robbinespu.ess.service.FormsService;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
+import io.robbinespu.ess.util.RestControllerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-public class FormRestController {
+public class FormRestController extends RestControllerHelper {
     private static final Logger logger = LoggerFactory.getLogger(FormRestController.class);
     FormsService formsService;
 
@@ -51,7 +52,7 @@ public class FormRestController {
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
         Forms formsDB = formsService.save(forms);
-        String formJson = objectToJsonObjectNode.EntitiesToJsonParent(formsDB);
+        String formJson = ConvertToJsonString(formsDB);
         map = new ObjectMapper().readValue(formJson, HashMap.class);
         map.put("status", "OK");
         logger.info("ROB->> Registered {} and assigned role {}", formsDB.getId(), formJson);
