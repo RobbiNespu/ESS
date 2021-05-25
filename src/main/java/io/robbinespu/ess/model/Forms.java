@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Forms
- * Last modified:  5/22/21, 5:04 PM
+ * Last modified:  5/25/21, 2:24 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -45,5 +45,5 @@ public class Forms extends DbAuditModels {
     @NotNull(message = "cannot be null")
     @NotBlank(message = "cannot be blank")
     private String name;
-    private int form;
+    private Integer form;
 }

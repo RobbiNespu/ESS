@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/25/21, 12:01 PM
+ * Last modified:  5/25/21, 3:08 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -61,11 +61,32 @@ public class UserRestController extends RestControllerHelper {
             logger.error("ROB->> user.getRoles are NULL");
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
-        if (user.getRoles().getForms() == null) {
+        // check student or teacher
+        if (user.getRoles() == null) {
             map.put("status", "FAILED");
-            logger.error("ROB->> user.getRoles().getForms() .getName() are NULL");
+            map.put("reason", "No ROLES define");
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
+
+        if (user.getRoles().getType() == "student") {
+            if (user.getRoles().getForms() == null) {
+                map.put("status", "FAILED");
+                map.put("reason", "ROLES define as STUDENT but no FORM details");
+                return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+
+        if (user.getRoles().getType().length() <= 0) {
+            logger.debug("Role: {} = {}", user.getRoles().getType(), user.getRoles().getType().length());
+        } else {
+            String[] roles = {"student", "teacher"};
+            if (java.util.Arrays.binarySearch(roles, user.getRoles().getType()) < 0) {
+                logger.error("Sorry that isn't a STUDENT or a TEACHER");
+                SendFailedStatusWithReason(user.getRoles().getType() + " are unknown");
+                return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
+            }
+        }
+
         Users userDB = userService.save(user);
         String userJson = ConvertToJsonString(userDB);
         map = new ObjectMapper().readValue(userJson, HashMap.class);

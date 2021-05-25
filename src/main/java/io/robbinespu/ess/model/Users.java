@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Users
- * Last modified:  5/22/21, 3:40 PM
+ * Last modified:  5/25/21, 2:09 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -32,6 +32,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "users")
 public class Users extends DbAuditModels {
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_user")
     @Column(name = "id", updatable = false, nullable = false)

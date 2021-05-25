@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Subjects
- * Last modified:  5/22/21, 4:36 PM
+ * Last modified:  5/25/21, 2:26 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -41,5 +41,5 @@ public class Subjects extends DbAuditModels {
                     @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
     private String id;
     private String name;
-    private int form;
+    private Integer form;
 }
