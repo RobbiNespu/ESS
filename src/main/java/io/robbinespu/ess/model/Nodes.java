@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Nodes
- * Last modified:  5/25/21, 3:12 PM
+ * Last modified:  5/26/21, 10:21 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -41,6 +41,4 @@ public class Nodes extends DbAuditModels {
     private String id;
     private String parent;
     private String child;
-    private String parentData;
-    private String childData;
 }

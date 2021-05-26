@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/26/21, 2:05 PM
+ * Last modified:  5/26/21, 10:57 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -13,12 +13,8 @@ package io.robbinespu.ess.business.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.robbinespu.ess.model.ClassSubjectList;
-import io.robbinespu.ess.model.Nodes;
-import io.robbinespu.ess.model.Subjects;
-import io.robbinespu.ess.service.ClassSubjectListService;
-import io.robbinespu.ess.service.NodeService;
-import io.robbinespu.ess.service.SubjectsService;
+import io.robbinespu.ess.model.*;
+import io.robbinespu.ess.service.*;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
 import org.slf4j.Logger;
@@ -42,17 +38,23 @@ public class SubjectRestController extends RestControllerHelper {
     SubjectsService subjectsService;
     ClassSubjectListService classSubjectListService;
     NodeService nodeService;
+    FormsService formsService;
+    UserService userService;
 
 
     @Autowired
     public SubjectRestController(
             SubjectsService subjectsService,
             ClassSubjectListService classSubjectListService,
-            NodeService nodeService) {
+            NodeService nodeService,
+            FormsService formsService,
+            UserService userService) {
         super();
         this.subjectsService = subjectsService;
         this.classSubjectListService = classSubjectListService;
         this.nodeService = nodeService;
+        this.formsService = formsService;
+        this.userService = userService;
     }
 
     @PostMapping(value = "/subjects")
@@ -86,28 +88,34 @@ public class SubjectRestController extends RestControllerHelper {
 
     @RequestMapping(value = "/subjects/class", method = RequestMethod.POST)
     public ResponseEntity<Map> process(@RequestBody Map<String, Object> payload, HttpServletRequest request) throws Exception {
-        HashMap<String, String> map = new HashMap<>();
         logger.debug("Receiving payload {} from {}", payload, request.getLocalAddr()); // Just for fun, get sender IP
-        String className = (String) payload.get("name");
-        Integer form = (Integer) payload.get("form");
-        //payload.forEach((k,v) -> logger.debug("key: " + k + ", value: " + v));
-        String teacherId = (String) ((Map) payload.get("subject_class")).get("teacherId");
-        String formId = (String) ((Map) payload.get("subject_class")).get("formId");
 
+        HashMap<String, String> map = new HashMap<>();
         Subjects subjects = new Subjects();
-        ClassSubjectList classSubjectList = new ClassSubjectList();
         Nodes nodes = new Nodes();
+        ClassSubjectList classSubjectList = new ClassSubjectList();
+        Optional<Forms> formsDb = Optional.of(new Forms());
+        Optional<Users> usersDb = Optional.of(new Users());
 
-        subjects.setName(className);
-        subjects.setForm(form);
+        String _subjectName = (String) payload.get("name");
+        Integer _form = (Integer) payload.get("form");
+        //payload.forEach((k,v) -> logger.debug("key: " + k + ", value: " + v));
+
+        usersDb = Optional.ofNullable(userService.findById((String) ((Map) payload.get("subject_class")).get("teacherId"))
+                .orElseThrow(() -> new CustomRestException("teacherId " + (String) ((Map) payload.get("subject_class")).get("teacherId") + " is not exist on system")));
+        formsDb = Optional.ofNullable(formsService.findById((String) ((Map) payload.get("subject_class")).get("formId"))
+                .orElseThrow(() -> new CustomRestException("formId " + (String) ((Map) payload.get("subject_class")).get("formId") + " is not exist on system")));
+
+        subjects.setName(_subjectName);
+        subjects.setForm(_form);
         subjects = subjectsService.save(subjects);
 
         classSubjectList.setSubjectId(subjects.getId());
-        classSubjectList.setFormId(formId);
-        classSubjectList.setTeacherRoleId(teacherId);
+        classSubjectList.setFormId(formsDb.get().getId());
+        classSubjectList.setTeacherRoleId(usersDb.get().getRoles().getId());
         classSubjectListService.save(classSubjectList);
 
-        nodes.setParent(formId);
+        nodes.setParent(formsDb.get().getId());
         nodes.setChild(subjects.getId());
         nodeService.save(nodes);
 
