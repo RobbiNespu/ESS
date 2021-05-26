@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/25/21, 7:00 PM
+ * Last modified:  5/26/21, 10:43 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -52,12 +52,12 @@ public class SubjectRestController extends RestControllerHelper {
         HashMap map = new HashMap<>();
         logger.debug("Parsed object: {}", subjects);
         if (subjects.getName() == null) {
-            SendFailedStatusWithReason("subjects.getName() null");
+            SendStatusFailed("subjects.getName() null");
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
 
         if (subjects.getForm() == null) {
-            SendFailedStatusWithReason("Form are null");
+            SendStatusFailed("Form are null");
             return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
         }
 
@@ -94,5 +94,6 @@ public class SubjectRestController extends RestControllerHelper {
         classSubjectList.setFormId(formId);
         classSubjectList.setTeacherRoleId(teacherId);
         classSubjectList = classSubjectListService.save(classSubjectList);
+        SendStatusSucess("subject registered");
     }
 }
