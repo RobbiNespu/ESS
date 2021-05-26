@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Nodes
- * Last modified:  5/22/21, 3:41 PM
+ * Last modified:  5/25/21, 3:12 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -39,8 +39,8 @@ public class Nodes extends DbAuditModels {
                     @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "node_"),
                     @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
     private String id;
-    private int parent;
-    private int child;
-    private String parentName;
-    private String childName;
+    private String parent;
+    private String child;
+    private String parentData;
+    private String childData;
 }

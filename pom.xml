@@ -4,7 +4,7 @@
   ~
   ~ Project :  Advance Software Development - Exam Scheduling System with DFS
   ~ Class name :  /home/robbi/Documents/workplace/java/ESS/pom.xml
-  ~ Last modified:  5/22/21, 1:36 PM
+  ~ Last modified:  5/26/21, 9:02 AM
   ~ User : Robbi Nespu < robbinespu@gmail.com >
   ~
   ~ License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -21,7 +21,7 @@
     </parent>
     <groupId>io.robbinespu</groupId>
     <artifactId>ESS</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>ESS</name>
     <description>Demo project for Spring Boot</description>
     <properties>

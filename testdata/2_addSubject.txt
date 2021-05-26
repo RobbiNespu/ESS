@@ -1,0 +1,9 @@
+POST localhost:9000/api/subjects/class
+{
+	"form": 1,
+	"name": "SCIENCE",
+	"subject_class": {
+		"teacherId": "teacher_001",
+		"formId": "form001"
+	}
+}
