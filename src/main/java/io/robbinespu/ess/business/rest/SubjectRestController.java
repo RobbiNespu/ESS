@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/26/21, 10:43 AM
+ * Last modified:  5/26/21, 11:16 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -76,7 +76,8 @@ public class SubjectRestController extends RestControllerHelper {
 
 
     @RequestMapping(value = "/subjects/class", method = RequestMethod.POST)
-    public void process(@RequestBody Map<String, Object> payload) throws Exception {
+    public ResponseEntity<Map> process(@RequestBody Map<String, Object> payload) throws Exception {
+        HashMap<String, String> map = new HashMap<>();
         logger.error("ROB map {}", payload);
         String className = (String) payload.get("name");
         Integer form = (Integer) payload.get("form");
@@ -94,6 +95,10 @@ public class SubjectRestController extends RestControllerHelper {
         classSubjectList.setFormId(formId);
         classSubjectList.setTeacherRoleId(teacherId);
         classSubjectList = classSubjectListService.save(classSubjectList);
-        SendStatusSucess("subject registered");
+
+        String subjectsJson = ConvertToJsonString(subjects);
+        map = new ObjectMapper().readValue(subjectsJson, HashMap.class);
+        map.putAll(SendStatusSuccess("subject registered"));
+        return new ResponseEntity<>(map, HttpStatus.OK);
     }
 }

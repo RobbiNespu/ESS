@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/26/21, 10:56 AM
+ * Last modified:  5/26/21, 11:16 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -91,7 +91,7 @@ public class UserRestController extends RestControllerHelper {
         userDB.getRoles().setUserId(userDB.getId());
         String userJson = ConvertToJsonString(userDB);
         map = new ObjectMapper().readValue(userJson, HashMap.class);
-        map.putAll(SendStatusSucess("Registered " + userDB.getId() + " and assigned role " + userDB.getRoles().getId() + ""));
+        map.putAll(SendStatusSuccess("Registered " + userDB.getId() + " and assigned role " + userDB.getRoles().getId() + ""));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 

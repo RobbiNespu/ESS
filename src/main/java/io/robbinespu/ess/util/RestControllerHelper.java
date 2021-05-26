@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.util.RestControllerHelper
- * Last modified:  5/26/21, 10:56 AM
+ * Last modified:  5/26/21, 11:18 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -27,19 +27,23 @@ public class RestControllerHelper implements Serializable {
     }
 
     public Map SendStatusFailed(String reason) {
-        HashMap map = new HashMap<>();
-        map.put("status", "Failed");
-        map.put("reason", reason);
-        logger.error("{} -> {}", map.get("status"), map.get("reason"));
-        return map;
+        HashMap processing_info = new HashMap<>();
+        HashMap details = new HashMap<>();
+        details.put("status", "Failed");
+        details.put("reason", reason);
+        processing_info.put("processing_info", details);
+        logger.error("{} -> {}", details.get("status"), details.get("reason"));
+        return processing_info;
     }
 
-    public Map SendStatusSucess(String reason) {
-        HashMap map = new HashMap<>();
-        map.put("status", "Success");
-        map.put("reason", reason);
-        logger.info("{} -> {}", map.get("status"), map.get("reason"));
-        return map;
+    public Map SendStatusSuccess(String reason) {
+        HashMap processing_info = new HashMap<>();
+        HashMap details = new HashMap<>();
+        details.put("status", "Success");
+        details.put("reason", reason);
+        processing_info.put("processing_info", details);
+        logger.info("{} -> {}", details.get("status"), details.get("reason"));
+        return processing_info;
     }
 
     public static <T> T getNestedValue(Map map, String... keys) {
