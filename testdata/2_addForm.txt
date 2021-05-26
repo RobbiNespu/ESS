@@ -1,7 +1,0 @@
-POST localhost:9000/api/forms
-{
-  "form": 1,
-  "name": "T1K1",
-  "id": "form_001",
-  "status": "OK"
-}
