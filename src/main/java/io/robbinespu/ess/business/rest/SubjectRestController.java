@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/26/21, 10:57 PM
+ * Last modified:  5/27/21, 12:01 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -92,32 +92,43 @@ public class SubjectRestController extends RestControllerHelper {
 
         HashMap<String, String> map = new HashMap<>();
         Subjects subjects = new Subjects();
-        Nodes nodes = new Nodes();
+        Nodes nodeFormSubject = new Nodes();
+        Nodes nodeSubjectGroup = new Nodes();
         ClassSubjectList classSubjectList = new ClassSubjectList();
         Optional<Forms> formsDb = Optional.of(new Forms());
         Optional<Users> usersDb = Optional.of(new Users());
 
-        String _subjectName = (String) payload.get("name");
-        Integer _form = (Integer) payload.get("form");
+        String _subjectName = (String) ((Map) payload.get("course")).get("subject_name");
+        int hour = (int) ((Map) payload.get("course")).get("hour");
         //payload.forEach((k,v) -> logger.debug("key: " + k + ", value: " + v));
 
-        usersDb = Optional.ofNullable(userService.findById((String) ((Map) payload.get("subject_class")).get("teacherId"))
-                .orElseThrow(() -> new CustomRestException("teacherId " + (String) ((Map) payload.get("subject_class")).get("teacherId") + " is not exist on system")));
-        formsDb = Optional.ofNullable(formsService.findById((String) ((Map) payload.get("subject_class")).get("formId"))
-                .orElseThrow(() -> new CustomRestException("formId " + (String) ((Map) payload.get("subject_class")).get("formId") + " is not exist on system")));
+        usersDb = Optional.ofNullable(userService.findById((String) ((Map) payload.get("course")).get("teacherId"))
+                .orElseThrow(() -> new CustomRestException("teacherId " + (String) ((Map) payload.get("course")).get("teacherId") + " is not exist on system")));
+        formsDb = Optional.ofNullable(formsService.findById((String) ((Map) payload.get("course")).get("formId"))
+                .orElseThrow(() -> new CustomRestException("formId " + (String) ((Map) payload.get("course")).get("formId") + " is not exist on system")));
+
+        logger.error("Hour --> {}", hour);
+        if (hour <= 0 || hour > 3) {
+            throw new CustomRestException("Course hour not between 1-3 hour");
+        }
 
         subjects.setName(_subjectName);
-        subjects.setForm(_form);
+        subjects.setForm(formsDb.get().getForm());
         subjects = subjectsService.save(subjects);
 
         classSubjectList.setSubjectId(subjects.getId());
         classSubjectList.setFormId(formsDb.get().getId());
         classSubjectList.setTeacherRoleId(usersDb.get().getRoles().getId());
+        classSubjectList.setGroupSlot(hour);
         classSubjectListService.save(classSubjectList);
 
-        nodes.setParent(formsDb.get().getId());
-        nodes.setChild(subjects.getId());
-        nodeService.save(nodes);
+        nodeFormSubject.setParent(formsDb.get().getId());
+        nodeFormSubject.setChild(subjects.getId());
+        nodeService.save(nodeFormSubject);
+
+        nodeSubjectGroup.setParent(subjects.getId());
+        nodeSubjectGroup.setChild("G" + String.valueOf(classSubjectList.getGroupSlot()));
+        nodeService.save(nodeSubjectGroup);
 
         String subjectsJson = ConvertToJsonString(subjects);
         map = new ObjectMapper().readValue(subjectsJson, HashMap.class);
