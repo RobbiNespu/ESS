@@ -28,31 +28,37 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 public class ClassSubjectListController {
-    // User-defined SerialVersionUID
-    private static final long SerialVersionUID = 1l;
-    private static final Logger logger = LoggerFactory.getLogger(ClassSubjectListController.class);
-    ClassSubjectListService classSubjectListService;
-    FormsService formsService;
-    UserService userService;
-    RoleService roleService;
+  // User-defined SerialVersionUID
+  private static final long SerialVersionUID = 1l;
+  private static final Logger logger = LoggerFactory.getLogger(ClassSubjectListController.class);
+  ClassSubjectListService classSubjectListService;
+  FormsService formsService;
+  UserService userService;
+  RoleService roleService;
 
-    @Autowired
-    public ClassSubjectListController(
-            ClassSubjectListService classSubjectListService,
-            FormsService formsService,
-            UserService userService,
-            RoleService roleService) {
-        super();
-        this.classSubjectListService = classSubjectListService;
-        this.formsService = formsService;
-        this.userService = userService;
-    }
+  @Autowired
+  public ClassSubjectListController(
+      ClassSubjectListService classSubjectListService,
+      FormsService formsService,
+      UserService userService,
+      RoleService roleService) {
+    super();
+    this.classSubjectListService = classSubjectListService;
+    this.formsService = formsService;
+    this.userService = userService;
+  }
 
-    @RequestMapping(value = "/subjectclass", method = RequestMethod.POST)
-    public ClassSubjectList addStudent(@RequestBody ClassSubjectList classSubjectList) {
-        logger.debug(">>>>>>>>> Form ID: {}", formsService.findById(classSubjectList.getFormId()).isPresent());
-        logger.debug(">>>>>>>>> Teacher ID: {}", roleService.roleRepo.findById(classSubjectList.getTeacherRoleId()).isPresent());
-        Forms std = formsService.findById(classSubjectList.getFormId()).orElseThrow(() -> new CustomRestException("ERROR!"));
-        return classSubjectListService.save(classSubjectList);
-    }
+  @RequestMapping(value = "/subjectclass", method = RequestMethod.POST)
+  public ClassSubjectList addStudent(@RequestBody ClassSubjectList classSubjectList) {
+    logger.debug(
+        ">>>>>>>>> Form ID: {}", formsService.findById(classSubjectList.getFormId()).isPresent());
+    logger.debug(
+        ">>>>>>>>> Teacher ID: {}",
+        roleService.roleRepo.findById(classSubjectList.getTeacherRoleId()).isPresent());
+    Forms std =
+        formsService
+            .findById(classSubjectList.getFormId())
+            .orElseThrow(() -> new CustomRestException("ERROR!"));
+    return classSubjectListService.save(classSubjectList);
+  }
 }
