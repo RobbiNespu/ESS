@@ -22,28 +22,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity(debug = false)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //super.configure(http);
-        http
-                .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic();
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    // super.configure(http);
+    http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+  }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //super.configure(auth);
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth
-                .inMemoryAuthentication()
-                .withUser("user")
-                .password(encoder.encode("password"))
-                .roles("USER")
-                .and()
-                .withUser("admin")
-                .password(encoder.encode("admin"))
-                .roles("USER", "ADMIN");
-    }
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    // super.configure(auth);
+    PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    auth.inMemoryAuthentication()
+        .withUser("user")
+        .password(encoder.encode("password"))
+        .roles("USER")
+        .and()
+        .withUser("admin")
+        .password(encoder.encode("admin"))
+        .roles("USER", "ADMIN");
+  }
 }

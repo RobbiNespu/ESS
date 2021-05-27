@@ -19,17 +19,16 @@ import io.robbinespu.ess.service.NodeService;
 import io.robbinespu.ess.service.RoleService;
 import io.robbinespu.ess.service.UserService;
 import io.robbinespu.ess.util.RestControllerHelper;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -44,7 +43,8 @@ public class UserRestController extends RestControllerHelper {
   NodeService nodeService;
 
   @Autowired
-  public UserRestController(UserService userService, RoleService roleService, NodeService nodeService) {
+  public UserRestController(
+      UserService userService, RoleService roleService, NodeService nodeService) {
     super();
     this.userService = userService;
     this.roleService = roleService;
@@ -98,12 +98,12 @@ public class UserRestController extends RestControllerHelper {
     String userJson = ConvertToJsonString(userDB);
     map = new ObjectMapper().readValue(userJson, HashMap.class);
     map.putAll(
-            SendStatusSuccess(
-                    "Registered "
-                            + userDB.getId()
-                            + " and assigned role "
-                            + userDB.getRoles().getId()
-                            + ""));
+        SendStatusSuccess(
+            "Registered "
+                + userDB.getId()
+                + " and assigned role "
+                + userDB.getRoles().getId()
+                + ""));
     if (userDB.getRoles().getType().equalsIgnoreCase("student")) {
       nodeDb.setParent("T" + userDB.getRoles().getForms().getFormYear());
       nodeDb.setChild(userDB.getRoles().getForms().getName());

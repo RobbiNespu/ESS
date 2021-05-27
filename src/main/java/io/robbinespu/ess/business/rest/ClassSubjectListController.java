@@ -52,8 +52,8 @@ public class ClassSubjectListController {
   public ClassSubjectList addStudent(@RequestBody ClassSubjectList classSubjectList) {
     Forms std =
         formsService
-                .findById(classSubjectList.getId()) // TODO: this is fake pls edit
-                .orElseThrow(() -> new CustomRestException("ERROR!"));
+            .findById(classSubjectList.getId()) // TODO: this is fake pls edit
+            .orElseThrow(() -> new CustomRestException("ERROR!"));
     return classSubjectListService.save(classSubjectList);
   }
 }
