@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/27/21, 3:31 PM
+ * Last modified:  5/28/21, 2:38 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -13,21 +13,23 @@ package io.robbinespu.ess.business.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.robbinespu.ess.model.Nodes;
 import io.robbinespu.ess.model.Users;
+import io.robbinespu.ess.service.NodeService;
 import io.robbinespu.ess.service.RoleService;
 import io.robbinespu.ess.service.UserService;
-import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -39,12 +41,14 @@ public class UserRestController extends RestControllerHelper {
 
   UserService userService;
   RoleService roleService;
+  NodeService nodeService;
 
   @Autowired
-  public UserRestController(UserService userService, RoleService roleService) {
+  public UserRestController(UserService userService, RoleService roleService, NodeService nodeService) {
     super();
     this.userService = userService;
     this.roleService = roleService;
+    this.nodeService = nodeService;
   }
 
   @GetMapping(value = "/users")
@@ -55,7 +59,6 @@ public class UserRestController extends RestControllerHelper {
   @PostMapping(value = "/users")
   public ResponseEntity<Map> addUser(@Valid @RequestBody Users user)
       throws JsonProcessingException {
-    ObjectToJsonObjectNode objectToJsonObjectNode = new ObjectToJsonObjectNode();
     HashMap<String, String> map = new HashMap<>();
     logger.debug("Parsed object: {}", user);
     if (user.getRoles() == null) {
@@ -90,16 +93,23 @@ public class UserRestController extends RestControllerHelper {
     }
 
     Users userDB = userService.save(user);
+    Nodes nodeDb = new Nodes();
     userDB.getRoles().setUserId(userDB.getId());
     String userJson = ConvertToJsonString(userDB);
     map = new ObjectMapper().readValue(userJson, HashMap.class);
     map.putAll(
-        SendStatusSuccess(
-            "Registered "
-                + userDB.getId()
-                + " and assigned role "
-                + userDB.getRoles().getId()
-                + ""));
+            SendStatusSuccess(
+                    "Registered "
+                            + userDB.getId()
+                            + " and assigned role "
+                            + userDB.getRoles().getId()
+                            + ""));
+    if (userDB.getRoles().getType().equalsIgnoreCase("student")) {
+      nodeDb.setParent("T" + userDB.getRoles().getForms().getFormYear());
+      nodeDb.setChild(userDB.getRoles().getForms().getName());
+      nodeDb.setLevel(2);
+      nodeService.save(nodeDb);
+    }
     return new ResponseEntity<>(map, HttpStatus.OK);
   }
 

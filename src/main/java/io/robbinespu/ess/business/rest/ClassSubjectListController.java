@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.ClassSubjectListController
- * Last modified:  5/27/21, 3:31 PM
+ * Last modified:  5/28/21, 2:38 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -50,15 +50,10 @@ public class ClassSubjectListController {
 
   @RequestMapping(value = "/subjectclass", method = RequestMethod.POST)
   public ClassSubjectList addStudent(@RequestBody ClassSubjectList classSubjectList) {
-    logger.debug(
-        ">>>>>>>>> Form ID: {}", formsService.findById(classSubjectList.getFormId()).isPresent());
-    logger.debug(
-        ">>>>>>>>> Teacher ID: {}",
-        roleService.roleRepo.findById(classSubjectList.getTeacherRoleId()).isPresent());
     Forms std =
         formsService
-            .findById(classSubjectList.getFormId())
-            .orElseThrow(() -> new CustomRestException("ERROR!"));
+                .findById(classSubjectList.getId()) // TODO: this is fake pls edit
+                .orElseThrow(() -> new CustomRestException("ERROR!"));
     return classSubjectListService.save(classSubjectList);
   }
 }

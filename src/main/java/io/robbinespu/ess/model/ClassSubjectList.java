@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.ClassSubjectList
- * Last modified:  5/27/21, 5:00 PM
+ * Last modified:  5/28/21, 2:38 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -12,13 +12,14 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import java.io.Serializable;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -48,9 +49,8 @@ public class ClassSubjectList implements Serializable {
       })
   private String id;
 
-  private String formId;
+  private Integer formYear;
   private String subjectId;
   private String teacherRoleId;
-  private int
-      groupSlot; // Don't change to String, it harder to check and compare with int value later
+  private int groupSlot; // Don't change to String, it harder if value check 1 to 3 later
 }
