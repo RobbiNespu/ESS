@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/27/21, 3:31 PM
+ * Last modified:  5/27/21, 6:30 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -17,17 +17,18 @@ import io.robbinespu.ess.model.*;
 import io.robbinespu.ess.service.*;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -101,6 +102,7 @@ public class SubjectRestController extends RestControllerHelper {
     ClassSubjectList classSubjectList = new ClassSubjectList();
     Optional<Forms> formsDb = Optional.of(new Forms());
     Optional<Users> usersDb = Optional.of(new Users());
+    Optional<Subjects> subjectDb = Optional.of(new Subjects());
 
     String _subjectName = (String) ((Map) payload.get("course")).get("subject_name");
     int hour = (int) ((Map) payload.get("course")).get("hour");
@@ -117,15 +119,23 @@ public class SubjectRestController extends RestControllerHelper {
                                 + (String) ((Map) payload.get("course")).get("teacherId")
                                 + " is not exist on system")));
     formsDb =
-        Optional.ofNullable(
-            formsService
-                .findById((String) ((Map) payload.get("course")).get("formId"))
-                .orElseThrow(
-                    () ->
-                        new CustomRestException(
-                            "formId "
-                                + (String) ((Map) payload.get("course")).get("formId")
-                                + " is not exist on system")));
+            Optional.ofNullable(
+                    formsService
+                            .findById((String) ((Map) payload.get("course")).get("formId"))
+                            .orElseThrow(
+                                    () ->
+                                            new CustomRestException(
+                                                    "formId "
+                                                            + (String) ((Map) payload.get("course")).get("formId")
+                                                            + " is not exist on system")));
+
+    subjectDb = Optional.ofNullable( // TODO should check ALREADY EXIST not null..
+            subjectsService
+                    .findByFormAndName(formsDb.get().getForm(), _subjectName)
+                    .orElseThrow(
+                            () ->
+                                    new CustomRestException(
+                                            "form and subject is not exist on system")));
 
     logger.error("Hour --> {}", hour);
     if (hour <= 0 || hour > 3) {

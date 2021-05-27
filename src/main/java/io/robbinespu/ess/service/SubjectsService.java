@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.service.SubjectsService
- * Last modified:  5/22/21, 6:23 PM
+ * Last modified:  5/27/21, 6:30 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -38,4 +38,11 @@ public class SubjectsService implements ISubjectsService {
     public Optional<Subjects> findById(String id) {
         return subjectRepo.findById(id);
     }
+
+    @Override
+    public Optional<Subjects> findByFormAndName(Integer form, String subjectName) {
+        return subjectRepo.findByFormAndName(form, subjectName);
+    }
+
+
 }

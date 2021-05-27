@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.service.ISubjectsService
- * Last modified:  5/25/21, 6:46 PM
+ * Last modified:  5/27/21, 6:30 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -18,4 +18,6 @@ import java.util.Optional;
 public interface ISubjectsService {
     Subjects save(Subjects subjects);
     Optional<Subjects> findById(String id);
+
+    Optional<Subjects> findByFormAndName(Integer form, String subjectName);
 }
