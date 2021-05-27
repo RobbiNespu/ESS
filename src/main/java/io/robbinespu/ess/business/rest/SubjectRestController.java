@@ -17,18 +17,17 @@ import io.robbinespu.ess.model.*;
 import io.robbinespu.ess.service.*;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -119,23 +118,23 @@ public class SubjectRestController extends RestControllerHelper {
                                 + (String) ((Map) payload.get("course")).get("teacherId")
                                 + " is not exist on system")));
     formsDb =
-            Optional.ofNullable(
-                    formsService
-                            .findById((String) ((Map) payload.get("course")).get("formId"))
-                            .orElseThrow(
-                                    () ->
-                                            new CustomRestException(
-                                                    "formId "
-                                                            + (String) ((Map) payload.get("course")).get("formId")
-                                                            + " is not exist on system")));
+        Optional.ofNullable(
+            formsService
+                .findById((String) ((Map) payload.get("course")).get("formId"))
+                .orElseThrow(
+                    () ->
+                        new CustomRestException(
+                            "formId "
+                                + (String) ((Map) payload.get("course")).get("formId")
+                                + " is not exist on system")));
 
-    subjectsService.findByFormAndName(formsDb.get().getForm(), _subjectName)
-            .ifPresent(
-                    s -> {
-                      throw new CustomRestException(
-                              "form and subject is already on system");
-                    });
-    
+    subjectsService
+        .findByFormAndName(formsDb.get().getForm(), _subjectName)
+        .ifPresent(
+            s -> {
+              throw new CustomRestException("form and subject is already on system");
+            });
+
     logger.error("Hour --> {}", hour);
     if (hour <= 0 || hour > 3) {
       throw new CustomRestException("Course hour not between 1-3 hour");
