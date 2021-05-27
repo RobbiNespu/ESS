@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/27/21, 6:53 PM
+ * Last modified:  5/27/21, 6:54 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -135,10 +135,7 @@ public class SubjectRestController extends RestControllerHelper {
                       throw new CustomRestException(
                               "form and subject is already on system");
                     });
-    /*if(subjectsService.findByFormAndName(formsDb.get().getForm(), _subjectName).isPresent()) {
-      throw new CustomRestException("form and subject is already on system");
-    }*/
-
+    
     logger.error("Hour --> {}", hour);
     if (hour <= 0 || hour > 3) {
       throw new CustomRestException("Course hour not between 1-3 hour");
