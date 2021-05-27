@@ -12,14 +12,13 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
+import java.io.Serializable;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -35,9 +34,9 @@ public class Subjects implements Serializable {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_subject")
   @Column(name = "id", updatable = false, nullable = false)
   @GenericGenerator(
-          name = "SEQ_subject",
-          strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
-          parameters = {
+      name = "SEQ_subject",
+      strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
+      parameters = {
         @org.hibernate.annotations.Parameter(
             name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM,
             value = "50"),
