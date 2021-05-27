@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Subjects
- * Last modified:  5/27/21, 3:29 PM
+ * Last modified:  5/27/21, 3:59 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -12,13 +12,14 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import io.robbinespu.ess.util.DbAuditModels;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -26,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Getter
 @Setter
 @Table(name = "subjects")
-public class Subjects extends DbAuditModels {
+public class Subjects implements Serializable {
   // User-defined SerialVersionUID
   private static final long SerialVersionUID = 1l;
 
@@ -34,9 +35,9 @@ public class Subjects extends DbAuditModels {
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_subject")
   @Column(name = "id", updatable = false, nullable = false)
   @GenericGenerator(
-      name = "SEQ_subject",
-      strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
-      parameters = {
+          name = "SEQ_subject",
+          strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
+          parameters = {
         @org.hibernate.annotations.Parameter(
             name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM,
             value = "50"),
