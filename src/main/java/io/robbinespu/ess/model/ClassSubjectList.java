@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.ClassSubjectList
- * Last modified:  5/27/21, 12:00 AM
+ * Last modified:  5/25/21, 12:42 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -41,5 +41,4 @@ public class ClassSubjectList extends DbAuditModels {
     private String formId;
     private String subjectId;
     private String teacherRoleId;
-    private int groupSlot; // Don't change to String, it harder to check and compare with int value later
 }
