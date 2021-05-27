@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Slots
- * Last modified:  5/27/21, 3:29 PM
+ * Last modified:  5/27/21, 3:59 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -12,7 +12,7 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import io.robbinespu.ess.util.DbAuditModels;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +27,7 @@ import org.hibernate.annotations.GenericGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "slots")
-public class Slots extends DbAuditModels {
+public class Slots implements Serializable {
   // User-defined SerialVersionUID
   private static final long SerialVersionUID = 1l;
 

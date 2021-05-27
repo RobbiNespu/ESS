@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Forms
- * Last modified:  5/27/21, 3:30 PM
+ * Last modified:  5/27/21, 3:59 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -12,7 +12,7 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import io.robbinespu.ess.util.DbAuditModels;
+import java.io.Serializable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -29,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Entity
 @Table(name = "forms")
-public class Forms extends DbAuditModels {
+public class Forms implements Serializable {
   // User-defined SerialVersionUID
   private static final long SerialVersionUID = 1l;
 
