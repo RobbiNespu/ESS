@@ -5,3 +5,15 @@ before_install:
   - docker-compose -f docker-compose.yml up -d
 script:
   - mvn clean install -DskipTests=true
+after_success:
+  # Generate test coverage report
+  - ./gradlew test jacocoTestReport
+
+  # Install deepsource CLI
+  - curl https://deepsource.io/cli | sh
+
+  # From the root directory, run the report coverage command
+  # This example is with respect to Gradle.
+  # The report directory will be different for Maven.
+  - ./bin/deepsource report --analyzer test-coverage --key java --value-file ./build/reports/jacoco/jacocoTestReport.xml
+
