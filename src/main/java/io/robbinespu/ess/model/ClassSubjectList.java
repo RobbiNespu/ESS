@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.ClassSubjectList
- * Last modified:  5/27/21, 3:59 PM
+ * Last modified:  5/27/21, 5:00 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -28,7 +28,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "class_subject_lists")
 public class ClassSubjectList implements Serializable {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1l;
+  private static final long SerialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_class_subject_lists")

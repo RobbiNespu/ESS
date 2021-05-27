@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Forms
- * Last modified:  5/27/21, 3:59 PM
+ * Last modified:  5/27/21, 5:00 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -31,7 +31,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "forms")
 public class Forms implements Serializable {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1l;
+  private static final long SerialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_form")
