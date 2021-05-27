@@ -49,5 +49,4 @@ public class Nodes extends DbAuditModels {
   private String child;
   private String parentData;
   private String childData;
-
 }
