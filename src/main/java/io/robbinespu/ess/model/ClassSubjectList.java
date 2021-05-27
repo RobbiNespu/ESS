@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.ClassSubjectList
- * Last modified:  5/27/21, 12:00 AM
+ * Last modified:  5/27/21, 3:30 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -13,13 +13,12 @@ package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
 import io.robbinespu.ess.util.DbAuditModels;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 
 @Getter
 @Setter
@@ -28,18 +27,30 @@ import javax.persistence.*;
 @Entity
 @Table(name = "class_subject_lists")
 public class ClassSubjectList extends DbAuditModels {
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_class_subject_lists")
-    @GenericGenerator(
-            name = "SEQ_class_subject_lists",
-            strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
-            parameters = {
-                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM, value = "50"),
-                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER, value = "class_subject_lists_"),
-                    @org.hibernate.annotations.Parameter(name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER, value = "%03d")})
-    private String id;
-    private String formId;
-    private String subjectId;
-    private String teacherRoleId;
-    private int groupSlot; // Don't change to String, it harder to check and compare with int value later
+  // User-defined SerialVersionUID
+  private static final long SerialVersionUID = 1l;
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_class_subject_lists")
+  @GenericGenerator(
+      name = "SEQ_class_subject_lists",
+      strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
+      parameters = {
+        @org.hibernate.annotations.Parameter(
+            name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM,
+            value = "50"),
+        @org.hibernate.annotations.Parameter(
+            name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER,
+            value = "class_subject_lists_"),
+        @org.hibernate.annotations.Parameter(
+            name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER,
+            value = "%03d")
+      })
+  private String id;
+
+  private String formId;
+  private String subjectId;
+  private String teacherRoleId;
+  private int
+      groupSlot; // Don't change to String, it harder to check and compare with int value later
 }
