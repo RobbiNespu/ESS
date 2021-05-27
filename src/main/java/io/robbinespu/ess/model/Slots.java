@@ -30,7 +30,7 @@ import java.util.Date;
 @Table(name = "slots")
 public class Slots implements Serializable {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1l;
+  private static final long SerialVersionUID = 1L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_slot")
