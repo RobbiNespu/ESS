@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.config.SpringSecurityConfig
- * Last modified:  5/26/21, 1:07 PM
+ * Last modified:  5/28/21, 12:55 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -20,30 +20,25 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        //super.configure(http);
-        http
-                .csrf().disable()
-                .authorizeRequests().anyRequest().authenticated()
-                .and()
-                .httpBasic();
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    // super.configure(http);
+    http.csrf().disable().authorizeRequests().anyRequest().authenticated().and().httpBasic();
+  }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        //super.configure(auth);
-        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth
-                .inMemoryAuthentication()
-                .withUser("user")
-                .password(encoder.encode("password"))
-                .roles("USER")
-                .and()
-                .withUser("admin")
-                .password(encoder.encode("admin"))
-                .roles("USER", "ADMIN");
-    }
+  @Override
+  protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    // super.configure(auth);
+    PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    auth.inMemoryAuthentication()
+        .withUser("user")
+        .password(encoder.encode("password"))
+        .roles("USER")
+        .and()
+        .withUser("admin")
+        .password(encoder.encode("admin"))
+        .roles("USER", "ADMIN");
+  }
 }

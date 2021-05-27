@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.ClassSubjectList
- * Last modified:  5/27/21, 5:00 PM
+ * Last modified:  5/28/21, 3:07 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -28,7 +28,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "class_subject_lists")
 public class ClassSubjectList implements Serializable {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1L;
+  private static final long serialVersionUID = 42L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_class_subject_lists")
@@ -48,9 +48,8 @@ public class ClassSubjectList implements Serializable {
       })
   private String id;
 
-  private String formId;
+  private Integer formYear;
   private String subjectId;
   private String teacherRoleId;
-  private int
-      groupSlot; // Don't change to String, it harder to check and compare with int value later
+  private int groupSlot; // Don't change to String, it harder if value check 1 to 3 later
 }

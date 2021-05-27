@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.ClassSubjectListController
- * Last modified:  5/27/21, 3:31 PM
+ * Last modified:  5/28/21, 3:17 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ClassSubjectListController {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1l;
+  private static final long serialVersionUID = 42L;
   private static final Logger logger = LoggerFactory.getLogger(ClassSubjectListController.class);
   ClassSubjectListService classSubjectListService;
   FormsService formsService;
@@ -50,14 +50,9 @@ public class ClassSubjectListController {
 
   @RequestMapping(value = "/subjectclass", method = RequestMethod.POST)
   public ClassSubjectList addStudent(@RequestBody ClassSubjectList classSubjectList) {
-    logger.debug(
-        ">>>>>>>>> Form ID: {}", formsService.findById(classSubjectList.getFormId()).isPresent());
-    logger.debug(
-        ">>>>>>>>> Teacher ID: {}",
-        roleService.roleRepo.findById(classSubjectList.getTeacherRoleId()).isPresent());
     Forms std =
         formsService
-            .findById(classSubjectList.getFormId())
+            .findById(classSubjectList.getId()) // TODO: this is fake pls edit
             .orElseThrow(() -> new CustomRestException("ERROR!"));
     return classSubjectListService.save(classSubjectList);
   }

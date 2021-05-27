@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Slots
- * Last modified:  5/27/21, 4:59 PM
+ * Last modified:  5/28/21, 3:07 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -29,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "slots")
 public class Slots implements Serializable {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1L;
+  private static final long serialVersionUID = 42L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_slot")

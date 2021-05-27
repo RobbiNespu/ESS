@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/27/21, 3:31 PM
+ * Last modified:  5/28/21, 3:17 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api")
 public class SubjectRestController extends RestControllerHelper {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1l;
+  private static final long serialVersionUID = 42L;
   private static final Logger logger = LoggerFactory.getLogger(SubjectRestController.class);
 
   SubjectsService subjectsService;
@@ -101,6 +101,7 @@ public class SubjectRestController extends RestControllerHelper {
     ClassSubjectList classSubjectList = new ClassSubjectList();
     Optional<Forms> formsDb = Optional.of(new Forms());
     Optional<Users> usersDb = Optional.of(new Users());
+    Optional<Subjects> subjectDb = Optional.of(new Subjects());
 
     String _subjectName = (String) ((Map) payload.get("course")).get("subject_name");
     int hour = (int) ((Map) payload.get("course")).get("hour");
@@ -127,27 +128,36 @@ public class SubjectRestController extends RestControllerHelper {
                                 + (String) ((Map) payload.get("course")).get("formId")
                                 + " is not exist on system")));
 
+    subjectsService
+        .findByFormAndName(formsDb.get().getFormYear(), _subjectName)
+        .ifPresent(
+            s -> {
+              throw new CustomRestException("form and subject is already on system");
+            });
+
     logger.error("Hour --> {}", hour);
     if (hour <= 0 || hour > 3) {
       throw new CustomRestException("Course hour not between 1-3 hour");
     }
 
     subjects.setName(_subjectName);
-    subjects.setForm(formsDb.get().getForm());
+    subjects.setForm(formsDb.get().getFormYear());
     subjects = subjectsService.save(subjects);
 
     classSubjectList.setSubjectId(subjects.getId());
-    classSubjectList.setFormId(formsDb.get().getId());
+    classSubjectList.setFormYear(formsDb.get().getFormYear());
     classSubjectList.setTeacherRoleId(usersDb.get().getRoles().getId());
     classSubjectList.setGroupSlot(hour);
     classSubjectListService.save(classSubjectList);
 
-    nodeFormSubject.setParent(formsDb.get().getId());
+    nodeFormSubject.setParent(formsDb.get().getName());
     nodeFormSubject.setChild(subjects.getId());
+    nodeFormSubject.setLevel(3);
     nodeService.save(nodeFormSubject);
 
     nodeSubjectGroup.setParent(subjects.getId());
     nodeSubjectGroup.setChild("G" + String.valueOf(classSubjectList.getGroupSlot()));
+    nodeSubjectGroup.setLevel(4);
     nodeService.save(nodeSubjectGroup);
 
     String subjectsJson = ConvertToJsonString(subjects);
