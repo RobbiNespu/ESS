@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/27/21, 12:01 AM
+ * Last modified:  5/26/21, 11:16 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -13,8 +13,10 @@ package io.robbinespu.ess.business.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.robbinespu.ess.model.*;
-import io.robbinespu.ess.service.*;
+import io.robbinespu.ess.model.ClassSubjectList;
+import io.robbinespu.ess.model.Subjects;
+import io.robbinespu.ess.service.ClassSubjectListService;
+import io.robbinespu.ess.service.SubjectsService;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
 import org.slf4j.Logger;
@@ -24,7 +26,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,24 +38,12 @@ public class SubjectRestController extends RestControllerHelper {
 
     SubjectsService subjectsService;
     ClassSubjectListService classSubjectListService;
-    NodeService nodeService;
-    FormsService formsService;
-    UserService userService;
-
 
     @Autowired
-    public SubjectRestController(
-            SubjectsService subjectsService,
-            ClassSubjectListService classSubjectListService,
-            NodeService nodeService,
-            FormsService formsService,
-            UserService userService) {
+    public SubjectRestController(SubjectsService subjectsService, ClassSubjectListService classSubjectListService) {
         super();
         this.subjectsService = subjectsService;
         this.classSubjectListService = classSubjectListService;
-        this.nodeService = nodeService;
-        this.formsService = formsService;
-        this.userService = userService;
     }
 
     @PostMapping(value = "/subjects")
@@ -87,48 +76,25 @@ public class SubjectRestController extends RestControllerHelper {
 
 
     @RequestMapping(value = "/subjects/class", method = RequestMethod.POST)
-    public ResponseEntity<Map> process(@RequestBody Map<String, Object> payload, HttpServletRequest request) throws Exception {
-        logger.debug("Receiving payload {} from {}", payload, request.getLocalAddr()); // Just for fun, get sender IP
-
+    public ResponseEntity<Map> process(@RequestBody Map<String, Object> payload) throws Exception {
         HashMap<String, String> map = new HashMap<>();
-        Subjects subjects = new Subjects();
-        Nodes nodeFormSubject = new Nodes();
-        Nodes nodeSubjectGroup = new Nodes();
-        ClassSubjectList classSubjectList = new ClassSubjectList();
-        Optional<Forms> formsDb = Optional.of(new Forms());
-        Optional<Users> usersDb = Optional.of(new Users());
-
-        String _subjectName = (String) ((Map) payload.get("course")).get("subject_name");
-        int hour = (int) ((Map) payload.get("course")).get("hour");
+        logger.error("ROB map {}", payload);
+        String className = (String) payload.get("name");
+        Integer form = (Integer) payload.get("form");
         //payload.forEach((k,v) -> logger.debug("key: " + k + ", value: " + v));
+        String teacherId = (String) ((Map) payload.get("subject_class")).get("teacherId");
+        String formId = (String) ((Map) payload.get("subject_class")).get("formId");
+        logger.error("Teacher : {}", teacherId);
 
-        usersDb = Optional.ofNullable(userService.findById((String) ((Map) payload.get("course")).get("teacherId"))
-                .orElseThrow(() -> new CustomRestException("teacherId " + (String) ((Map) payload.get("course")).get("teacherId") + " is not exist on system")));
-        formsDb = Optional.ofNullable(formsService.findById((String) ((Map) payload.get("course")).get("formId"))
-                .orElseThrow(() -> new CustomRestException("formId " + (String) ((Map) payload.get("course")).get("formId") + " is not exist on system")));
-
-        logger.error("Hour --> {}", hour);
-        if (hour <= 0 || hour > 3) {
-            throw new CustomRestException("Course hour not between 1-3 hour");
-        }
-
-        subjects.setName(_subjectName);
-        subjects.setForm(formsDb.get().getForm());
+        Subjects subjects = new Subjects();
+        subjects.setName(className);
+        subjects.setForm(form);
         subjects = subjectsService.save(subjects);
-
+        ClassSubjectList classSubjectList = new ClassSubjectList();
         classSubjectList.setSubjectId(subjects.getId());
-        classSubjectList.setFormId(formsDb.get().getId());
-        classSubjectList.setTeacherRoleId(usersDb.get().getRoles().getId());
-        classSubjectList.setGroupSlot(hour);
-        classSubjectListService.save(classSubjectList);
-
-        nodeFormSubject.setParent(formsDb.get().getId());
-        nodeFormSubject.setChild(subjects.getId());
-        nodeService.save(nodeFormSubject);
-
-        nodeSubjectGroup.setParent(subjects.getId());
-        nodeSubjectGroup.setChild("G" + String.valueOf(classSubjectList.getGroupSlot()));
-        nodeService.save(nodeSubjectGroup);
+        classSubjectList.setFormId(formId);
+        classSubjectList.setTeacherRoleId(teacherId);
+        classSubjectList = classSubjectListService.save(classSubjectList);
 
         String subjectsJson = ConvertToJsonString(subjects);
         map = new ObjectMapper().readValue(subjectsJson, HashMap.class);
