@@ -11,12 +11,11 @@
 
 package io.robbinespu.ess.util;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class RestControllerHelper implements Serializable {
   // User-defined SerialVersionUID
