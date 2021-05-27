@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/27/21, 6:50 PM
+ * Last modified:  5/27/21, 6:53 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -129,13 +129,15 @@ public class SubjectRestController extends RestControllerHelper {
                                                             + (String) ((Map) payload.get("course")).get("formId")
                                                             + " is not exist on system")));
 
-    subjectsService // TODO: still not working
-            .findByFormAndName(formsDb.get().getForm(), _subjectName)
+    subjectsService.findByFormAndName(formsDb.get().getForm(), _subjectName)
             .ifPresent(
                     s -> {
-                      new CustomRestException(
+                      throw new CustomRestException(
                               "form and subject is already on system");
                     });
+    /*if(subjectsService.findByFormAndName(formsDb.get().getForm(), _subjectName).isPresent()) {
+      throw new CustomRestException("form and subject is already on system");
+    }*/
 
     logger.error("Hour --> {}", hour);
     if (hour <= 0 || hour > 3) {
