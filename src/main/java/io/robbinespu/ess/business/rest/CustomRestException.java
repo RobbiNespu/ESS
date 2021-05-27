@@ -20,11 +20,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Getter
 @Setter
 public class CustomRestException extends RuntimeException {
-    private static final long serialVersionUID = 1L;
-    private String message;
+  private static final long serialVersionUID = 1L;
+  private String message;
 
-    public CustomRestException(String message) {
-        this.message = message;
-    }
-
+  public CustomRestException(String message) {
+    this.message = message;
+  }
 }

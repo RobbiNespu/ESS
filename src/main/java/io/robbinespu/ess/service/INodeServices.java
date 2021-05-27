@@ -14,5 +14,5 @@ package io.robbinespu.ess.service;
 import io.robbinespu.ess.model.Nodes;
 
 public interface INodeServices {
-    Nodes save(Nodes nodes);
+  Nodes save(Nodes nodes);
 }

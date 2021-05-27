@@ -18,15 +18,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ClassSubjectListService implements IClassSubjectListService {
-    public final ClassSubjectListRepo classSubjectListRepo;
+  public final ClassSubjectListRepo classSubjectListRepo;
 
-    @Autowired
-    public ClassSubjectListService(ClassSubjectListRepo classSubjectListRepo) {
-        this.classSubjectListRepo = classSubjectListRepo;
-    }
+  @Autowired
+  public ClassSubjectListService(ClassSubjectListRepo classSubjectListRepo) {
+    this.classSubjectListRepo = classSubjectListRepo;
+  }
 
-    @Override
-    public ClassSubjectList save(ClassSubjectList classSubjectList) {
-        return classSubjectListRepo.save(classSubjectList);
-    }
+  @Override
+  public ClassSubjectList save(ClassSubjectList classSubjectList) {
+    return classSubjectListRepo.save(classSubjectList);
+  }
 }
