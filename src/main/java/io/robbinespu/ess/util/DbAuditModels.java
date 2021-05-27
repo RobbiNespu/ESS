@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.util.DbAuditModels
- * Last modified:  5/22/21, 3:39 PM
+ * Last modified:  5/27/21, 3:32 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -21,6 +21,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class DbAuditModels implements Serializable {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
+
     @MappedSuperclass
     @EntityListeners(AuditingEntityListener.class)
     @JsonIgnoreProperties(

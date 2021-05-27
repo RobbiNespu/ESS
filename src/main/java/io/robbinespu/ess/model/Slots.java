@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Slots
- * Last modified:  5/22/21, 3:41 PM
+ * Last modified:  5/27/21, 3:29 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -29,6 +29,8 @@ import java.util.Date;
 @AllArgsConstructor
 @Table(name = "slots")
 public class Slots extends DbAuditModels {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_slot")
     @GenericGenerator(

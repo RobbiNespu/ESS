@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.FormRestController
- * Last modified:  5/25/21, 12:04 PM
+ * Last modified:  5/27/21, 3:31 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -32,6 +32,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class FormRestController extends RestControllerHelper {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
     private static final Logger logger = LoggerFactory.getLogger(FormRestController.class);
     FormsService formsService;
 

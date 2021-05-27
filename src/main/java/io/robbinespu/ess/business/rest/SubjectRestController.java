@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/27/21, 12:01 AM
+ * Last modified:  5/27/21, 3:31 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -33,6 +33,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api")
 public class SubjectRestController extends RestControllerHelper {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
     private static final Logger logger = LoggerFactory.getLogger(SubjectRestController.class);
 
     SubjectsService subjectsService;

@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.ClassSubjectList
- * Last modified:  5/27/21, 12:00 AM
+ * Last modified:  5/27/21, 3:30 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -28,6 +28,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "class_subject_lists")
 public class ClassSubjectList extends DbAuditModels {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_class_subject_lists")
     @GenericGenerator(

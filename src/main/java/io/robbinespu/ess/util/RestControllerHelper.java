@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.util.RestControllerHelper
- * Last modified:  5/26/21, 11:18 AM
+ * Last modified:  5/27/21, 3:28 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RestControllerHelper implements Serializable {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
     private static final Logger logger = LoggerFactory.getLogger(RestControllerHelper.class);
 
     public String ConvertToJsonString(Object entity) {

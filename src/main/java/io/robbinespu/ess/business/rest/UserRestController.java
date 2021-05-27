@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/26/21, 11:16 AM
+ * Last modified:  5/27/21, 3:31 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -33,6 +33,8 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class UserRestController extends RestControllerHelper {
+    // User-defined SerialVersionUID
+    private static final long SerialVersionUID = 1l;
 
     private static final Logger logger = LoggerFactory.getLogger(UserRestController.class);
 
