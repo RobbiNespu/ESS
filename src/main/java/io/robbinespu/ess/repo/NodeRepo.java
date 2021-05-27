@@ -14,5 +14,4 @@ package io.robbinespu.ess.repo;
 import io.robbinespu.ess.model.Nodes;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface NodeRepo extends JpaRepository<Nodes, String> {
-}
+public interface NodeRepo extends JpaRepository<Nodes, String> {}
