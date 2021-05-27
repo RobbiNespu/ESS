@@ -21,11 +21,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class EssApplication {
 
-    private static final Logger LOG = LoggerFactory.getLogger(EssApplication.class);
+  private static final Logger LOG = LoggerFactory.getLogger(EssApplication.class);
 
-    public static void main(String[] args) {
-        SpringApplication.run(EssApplication.class, args);
-        LOG.debug("<------------------- SYSTEM IS UP! ------------------->");
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(EssApplication.class, args);
+    LOG.debug("<------------------- SYSTEM IS UP! ------------------->");
+  }
 }
