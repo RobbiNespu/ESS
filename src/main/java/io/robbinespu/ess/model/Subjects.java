@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Subjects
- * Last modified:  5/27/21, 5:00 PM
+ * Last modified:  5/28/21, 3:02 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -12,13 +12,14 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import java.io.Serializable;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @NoArgsConstructor
@@ -28,7 +29,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "subjects")
 public class Subjects implements Serializable {
   // User-defined SerialVersionUID
-  private static final long SerialVersionUID = 1L;
+  private static final long SerialVersionUID = 42L;
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_subject")
