@@ -23,5 +23,4 @@ public class SlotService implements ISlotsService {
   public SlotService(SlotRepo slotRepo) {
     this.slotRepo = slotRepo;
   }
-
 }

@@ -12,12 +12,11 @@
 package io.robbinespu.ess.repo;
 
 import io.robbinespu.ess.model.Subjects;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface SubjetsRepo extends JpaRepository<Subjects, String> {
@@ -27,9 +26,10 @@ public interface SubjetsRepo extends JpaRepository<Subjects, String> {
   Optional<Subjects> findById(String id);
 
   @Query(
-          value =
-                  "SELECT * FROM `subjects` WHERE `form` = :searchForm AND `id` = :searchSubjectName LIMIT 1",
-          nativeQuery = true)
+      value =
+          "SELECT * FROM `subjects` WHERE `form` = :searchForm AND `id` = :searchSubjectName LIMIT"
+              + " 1",
+      nativeQuery = true)
   Optional<Subjects> findByFormAndName(
       @Param("searchForm") Integer form, @Param("searchSubjectName") String subjectName);
 }
