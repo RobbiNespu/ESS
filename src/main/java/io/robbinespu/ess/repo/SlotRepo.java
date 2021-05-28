@@ -12,15 +12,17 @@
 package io.robbinespu.ess.repo;
 
 import io.robbinespu.ess.model.Slots;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface SlotRepo extends JpaRepository<Slots, String> {
-    @Query(value = "SELECT * FROM `slots` WHERE `classSubjectList_Id` = :searchclassSubjectList_Id LIMIT 1", nativeQuery = true)
-    Optional<Slots> findByClassSubjectListIds(@Param("searchclassSubjectList_Id") String subjectName);
+  @Query(
+      value =
+          "SELECT * FROM `slots` WHERE `classSubjectList_Id` = :searchclassSubjectList_Id LIMIT 1",
+      nativeQuery = true)
+  Optional<Slots> findByClassSubjectListIds(@Param("searchclassSubjectList_Id") String subjectName);
 }

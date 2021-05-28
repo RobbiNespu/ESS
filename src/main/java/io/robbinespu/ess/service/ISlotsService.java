@@ -12,9 +12,8 @@
 package io.robbinespu.ess.service;
 
 import io.robbinespu.ess.model.Slots;
-
 import java.util.Optional;
 
 public interface ISlotsService {
-    Optional<Slots> findByClassSubjectListIds(String subjectId);
+  Optional<Slots> findByClassSubjectListIds(String subjectId);
 }
