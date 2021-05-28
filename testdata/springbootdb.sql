@@ -56,27 +56,33 @@ VALUES ('node_001', 'F1K1', 2, 'T1'),
        ('node_004', 'T2', 1, 'X'),
        ('node_005', 'subject_001', 3, 'F1K1'),
        ('node_006', 'G1', 4, 'subject_001'),
-       ('node_007', 'subject_002', 3, 'F1K1'),
-       ('node_008', 'G2', 4, 'subject_002'),
-       ('node_009', 'subject_003', 3, 'F1K1'),
-       ('node_010', 'G3', 4, 'subject_003');
+       ('node_007', 'SLOT7', 5, 'G1'),
+       ('node_008', 'subject_002', 3, 'F1K1'),
+       ('node_009', 'G2', 4, 'subject_002'),
+       ('node_010', 'SLOT1', 5, 'G2'),
+       ('node_011', 'SLOT3', 5, 'G2'),
+       ('node_012', 'SLOT6', 5, 'G2'),
+       ('node_013', 'subject_003', 3, 'F1K1'),
+       ('node_014', 'G3', 4, 'subject_003'),
+       ('node_015', 'SLOT2', 5, 'G3'),
+       ('node_016', 'SLOT4', 5, 'G3'),
+       ('node_017', 'SLOT5', 5, 'G3');
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE `role`
 (
     `id`       varchar(255) NOT NULL,
     `type`     varchar(255) DEFAULT NULL,
-    `user_id`  varchar(255) DEFAULT NULL,
     `forms_id` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY        `FK2wk7joawhxj0u7pyexg566e4n` (`forms_id`),
     CONSTRAINT `FK2wk7joawhxj0u7pyexg566e4n` FOREIGN KEY (`forms_id`) REFERENCES `forms` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `role` (`id`, `type`, `user_id`, `forms_id`)
-VALUES ('role_001', 'student', 'user_001', 'form_001'),
-       ('role_002', 'student', 'user_002', 'form_002'),
-       ('role_003', 'teacher', NULL, NULL);
+INSERT INTO `role` (`id`, `type`, `forms_id`)
+VALUES ('role_001', 'student', 'form_001'),
+       ('role_002', 'student', 'form_002'),
+       ('role_003', 'teacher', NULL);
 
 DROP TABLE IF EXISTS `seq_class_subject_lists`;
 CREATE TABLE `seq_class_subject_lists`
@@ -179,16 +185,27 @@ CREATE TABLE `seq_user`
 DROP TABLE IF EXISTS `slots`;
 CREATE TABLE `slots`
 (
-    `id`         varchar(255) NOT NULL,
-    `active`     bit(1)       NOT NULL,
-    `booked`     bit(1)       NOT NULL,
-    `class_id`   int(11) NOT NULL,
-    `exam_date`  datetime(6) DEFAULT NULL,
-    `name`       varchar(255) DEFAULT NULL,
-    `subject_id` int(11) NOT NULL,
-    PRIMARY KEY (`id`)
+    `id`                    varchar(255) NOT NULL,
+    `active`                bit(1)       NOT NULL,
+    `booked`                bit(1)       NOT NULL,
+    `booked_by`             varchar(255) DEFAULT NULL,
+    `booked_date`           datetime(6) DEFAULT NULL,
+    `exam_date`             datetime(6) DEFAULT NULL,
+    `name`                  varchar(255) DEFAULT NULL,
+    `class_subject_list_id` varchar(255) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY                     `FK4iid320ev9spcvh8676xr1jdu` (`class_subject_list_id`),
+    CONSTRAINT `FK4iid320ev9spcvh8676xr1jdu` FOREIGN KEY (`class_subject_list_id`) REFERENCES `class_subject_lists` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+INSERT INTO `slots` (`id`, `active`, `booked`, `booked_by`, `booked_date`, `exam_date`, `name`, `class_subject_list_id`)
+VALUES ('slot_001', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT7', 'class_subject_lists_001'),
+       ('slot_002', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT1', 'class_subject_lists_002'),
+       ('slot_003', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT3', 'class_subject_lists_002'),
+       ('slot_004', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT6', 'class_subject_lists_002'),
+       ('slot_005', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT2', 'class_subject_lists_003'),
+       ('slot_006', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT4', 'class_subject_lists_003'),
+       ('slot_007', CONV('1', 2, 10) + 0, CONV('0', 2, 10) + 0, NULL, NULL, NULL, 'SLOT5', 'class_subject_lists_003');
 
 DROP TABLE IF EXISTS `subjects`;
 CREATE TABLE `subjects`
@@ -220,8 +237,8 @@ CREATE TABLE `users`
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO `users` (`id`, `department`, `email`, `name`, `password`, `username`, `roles_id`)
-VALUES ('user_001', NULL, 'ahmad@test.com', 'Ahmad', 'pass12345', 'ahmad', 'role_001'),
-       ('user_002', NULL, 'ahmad@test.com', 'Ahmad', 'pass12345', 'ahmad', 'role_002'),
+VALUES ('user_001', NULL, 'ahmad@test.com', 'ahmad', 'pass12345', 'ahmad', 'role_001'),
+       ('user_002', NULL, 'shizuka@test.com', 'shizuka', 'pass12345', 'shizuka', 'role_002'),
        ('user_003', NULL, 'suraya@test.com', 'suraya', 'pass12345', 'suraya', 'role_003');
 
 /*
@@ -229,10 +246,10 @@ VALUES ('user_001', NULL, 'ahmad@test.com', 'Ahmad', 'pass12345', 'ahmad', 'role
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  /home/robbi/Documents/workplace/java/ESS/testdata/springbootdb.sql
- * Last modified:  5/28/21, 2:07 PM
+ * Last modified:  5/29/21, 12:33 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
  */
 
--- 2021-05-28 05:02:02
+-- 2021-05-28 16:31:56

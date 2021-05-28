@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.service.ISlotsService
- * Last modified:  5/28/21, 9:41 PM
+ * Last modified:  5/29/21, 12:33 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -11,4 +11,8 @@
 
 package io.robbinespu.ess.service;
 
-public interface ISlotsService {}
+import io.robbinespu.ess.model.Slots;
+
+public interface ISlotsService {
+    Slots save(Slots slots);
+}
