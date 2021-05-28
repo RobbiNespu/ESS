@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SlotRestController
- * Last modified:  5/28/21, 9:41 PM
+ * Last modified:  5/28/21, 10:34 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -44,9 +44,13 @@ public class SlotRestController extends RestControllerHelper {
     @GetMapping(value = "/slots/{formYear}/{subjectId}")
     public Map showSlotForFormYearSubjectId(
             @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
-        if (subjectsService.findByFormAndName(formYear, subjectId).isPresent()) {
 
-        }
+        logger.debug("ROB ==> findByFormAndName = {}", subjectsService.findByFormAndName(formYear, subjectId));
+
+        subjectsService
+                .findByFormAndName(formYear, subjectId)
+                .orElseThrow(
+                        () -> new CustomRestException("form and subject is not exist on system"));
         return SendStatusSuccess("OK IT WORKING");
     }
 }
