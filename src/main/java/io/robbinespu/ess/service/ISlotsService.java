@@ -14,5 +14,5 @@ package io.robbinespu.ess.service;
 import io.robbinespu.ess.model.Slots;
 
 public interface ISlotsService {
-    Slots save(Slots slots);
+  Slots save(Slots slots);
 }
