@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/28/21, 3:53 AM
+ * Last modified:  5/28/21, 12:41 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -19,16 +19,17 @@ import io.robbinespu.ess.service.NodeService;
 import io.robbinespu.ess.service.RoleService;
 import io.robbinespu.ess.service.UserService;
 import io.robbinespu.ess.util.RestControllerHelper;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -61,11 +62,6 @@ public class UserRestController extends RestControllerHelper {
       throws JsonProcessingException {
     HashMap<String, String> map = new HashMap<>();
     logger.debug("Parsed object: {}", user);
-    if (user.getRoles() == null) {
-      map.put("status", "FAILED");
-      logger.error("ROB->> user.getRoles are NULL");
-      return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
-    }
     // check student or teacher
     if (user.getRoles() == null) {
       map.put("status", "FAILED");
@@ -73,7 +69,7 @@ public class UserRestController extends RestControllerHelper {
       return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    if (user.getRoles().getType() == "student") {
+    if (user.getRoles().getType().equals("student")) {
       if (user.getRoles().getForms() == null) {
         map.put("status", "FAILED");
         map.put("reason", "ROLES define as STUDENT but no FORM details");
