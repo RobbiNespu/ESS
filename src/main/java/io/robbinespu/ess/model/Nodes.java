@@ -12,14 +12,13 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
+import java.io.Serializable;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Setter
@@ -42,10 +41,10 @@ public class Nodes implements Serializable {
             value = "50"),
         @org.hibernate.annotations.Parameter(
             name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER,
-                value = "node_"),
-              @org.hibernate.annotations.Parameter(
-                      name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER,
-                      value = "%03d")
+            value = "node_"),
+        @org.hibernate.annotations.Parameter(
+            name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER,
+            value = "%03d")
       })
   private String id;
 

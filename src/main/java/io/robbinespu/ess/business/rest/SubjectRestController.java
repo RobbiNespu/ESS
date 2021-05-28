@@ -17,18 +17,17 @@ import io.robbinespu.ess.model.*;
 import io.robbinespu.ess.service.*;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -180,7 +179,7 @@ public class SubjectRestController extends RestControllerHelper {
       Nodes slots5 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT5", 5); // SL5
       nodeService.save(slots5);
     } else {
-      //heck!
+      // heck!
       throw new CustomRestException("What happen? Pls check");
     }
     // END => UGLIEST code - It maybe blow up! - Slots node edges | handle it with care
