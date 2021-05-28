@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Roles
- * Last modified:  5/28/21, 3:07 AM
+ * Last modified:  5/28/21, 1:43 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -12,13 +12,14 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import java.io.Serializable;
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
@@ -49,7 +50,6 @@ public class Roles implements Serializable {
   private String id;
 
   private String type;
-  private String userId;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "forms_Id")
