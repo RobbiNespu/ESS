@@ -17,10 +17,10 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class SlotService implements ISlotsService {
-    public final SlotRepo slotRepo;
+  public final SlotRepo slotRepo;
 
-    @Autowired
-    public SlotService(SlotRepo slotRepo) {
-        this.slotRepo = slotRepo;
-    }
+  @Autowired
+  public SlotService(SlotRepo slotRepo) {
+    this.slotRepo = slotRepo;
+  }
 }

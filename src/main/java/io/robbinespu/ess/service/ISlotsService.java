@@ -11,5 +11,4 @@
 
 package io.robbinespu.ess.service;
 
-public interface ISlotsService {
-}
+public interface ISlotsService {}

@@ -12,15 +12,14 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
+import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -39,21 +38,24 @@ public class Slots implements Serializable {
       strategy = "io.robbinespu.ess.util.CustomSeqGeneratorIdForUser",
       parameters = {
         @org.hibernate.annotations.Parameter(
-                name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM,
-                value = "50"),
-              @org.hibernate.annotations.Parameter(
-                      name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER,
-                      value = "slot_"),
-              @org.hibernate.annotations.Parameter(
-                      name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER,
-                      value = "%03d")
+            name = CustomSeqGeneratorIdForUser.INCREMENT_PARAM,
+            value = "50"),
+        @org.hibernate.annotations.Parameter(
+            name = CustomSeqGeneratorIdForUser.VALUE_PREFIX_PARAMETER,
+            value = "slot_"),
+        @org.hibernate.annotations.Parameter(
+            name = CustomSeqGeneratorIdForUser.NUMBER_FORMAT_PARAMETER,
+            value = "%03d")
       })
   private String id;
+
   private String bookedBy;
   private Date bookedDate;
+
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "classSubjectList_Id")
   private ClassSubjectList classSubjectList;
+
   private boolean active;
   private Date examDate;
 }
