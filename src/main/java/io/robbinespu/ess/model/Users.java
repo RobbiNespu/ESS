@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Users
- * Last modified:  5/28/21, 3:02 AM
+ * Last modified:  5/28/21, 1:43 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -60,6 +60,6 @@ public class Users implements Serializable {
   private String password;
 
   @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "rolesId")
+  @JoinColumn(name = "roles_Id")
   private Roles roles;
 }

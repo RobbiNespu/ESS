@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Roles
- * Last modified:  5/28/21, 3:07 AM
+ * Last modified:  5/28/21, 1:43 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -49,7 +49,6 @@ public class Roles implements Serializable {
   private String id;
 
   private String type;
-  private String userId;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "forms_Id")

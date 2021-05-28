@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.UserRestController
- * Last modified:  5/28/21, 3:53 AM
+ * Last modified:  5/28/21, 1:20 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -61,11 +61,6 @@ public class UserRestController extends RestControllerHelper {
       throws JsonProcessingException {
     HashMap<String, String> map = new HashMap<>();
     logger.debug("Parsed object: {}", user);
-    if (user.getRoles() == null) {
-      map.put("status", "FAILED");
-      logger.error("ROB->> user.getRoles are NULL");
-      return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
-    }
     // check student or teacher
     if (user.getRoles() == null) {
       map.put("status", "FAILED");
@@ -73,7 +68,7 @@ public class UserRestController extends RestControllerHelper {
       return new ResponseEntity<>(map, HttpStatus.NOT_ACCEPTABLE);
     }
 
-    if (user.getRoles().getType() == "student") {
+    if (user.getRoles().getType().equals("student")) {
       if (user.getRoles().getForms() == null) {
         map.put("status", "FAILED");
         map.put("reason", "ROLES define as STUDENT but no FORM details");
@@ -94,7 +89,6 @@ public class UserRestController extends RestControllerHelper {
 
     Users userDB = userService.save(user);
     Nodes nodeDb = new Nodes();
-    userDB.getRoles().setUserId(userDB.getId());
     String userJson = ConvertToJsonString(userDB);
     map = new ObjectMapper().readValue(userJson, HashMap.class);
     map.putAll(
