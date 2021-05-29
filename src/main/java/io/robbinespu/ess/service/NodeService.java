@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.service.NodeService
- * Last modified:  5/26/21, 2:12 PM
+ * Last modified:  5/29/21, 4:13 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -28,5 +28,10 @@ public class NodeService implements INodeServices {
     @Override
     public Nodes save(Nodes nodes) {
         return nodeRepo.save(nodes);
+    }
+
+    @Override
+    public int sizeParentSubject(String subjectId) {
+        return this.nodeRepo.sizeParentSubject(subjectId);
     }
 }
