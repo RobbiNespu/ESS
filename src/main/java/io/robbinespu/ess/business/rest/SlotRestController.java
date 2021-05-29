@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SlotRestController
- * Last modified:  5/29/21, 4:35 PM
+ * Last modified:  5/29/21, 6:52 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -18,6 +18,7 @@ import io.robbinespu.ess.service.ClassSubjectListService;
 import io.robbinespu.ess.service.NodeService;
 import io.robbinespu.ess.service.SlotService;
 import io.robbinespu.ess.service.SubjectsService;
+import io.robbinespu.ess.util.DepthFirstSearch;
 import io.robbinespu.ess.util.RestControllerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,10 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -106,10 +104,17 @@ public class SlotRestController extends RestControllerHelper {
     logger.debug("we have {} parent node to process", nodeService.nodeRepo.sizeParentSubject(subjectId));
 
     // grab parent,child and link!
+    DepthFirstSearch d = new DepthFirstSearch();
+    HashMap<String, ArrayList<String>> path = new HashMap<String, ArrayList<String>>();
+    Map<String, ArrayList<String>> mapDFS;
+    mapDFS = new HashMap<String, ArrayList<String>>();
+
     for (int i = 0; i < nodesDb.size(); i++) {
       logger.debug("lets check the nodes[{}] = ({}, {})", i, nodesDb.get(i).getParent(), nodesDb.get(i).getChild());
+      mapDFS = d.link(mapDFS, nodesDb.get(i).getParent(), nodesDb.get(i).getChild());
     }
-
+    path = d.dfs(mapDFS, "X", subjectId);
+    d.print(mapDFS, path);
 
     map.putAll(SendStatusSuccess("Slot available (Picked by DFS), don't forget to book"));
     return new ResponseEntity<>(map, HttpStatus.OK);
