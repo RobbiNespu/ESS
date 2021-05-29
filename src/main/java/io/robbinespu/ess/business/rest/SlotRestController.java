@@ -17,6 +17,10 @@ import io.robbinespu.ess.service.ClassSubjectListService;
 import io.robbinespu.ess.service.SlotService;
 import io.robbinespu.ess.service.SubjectsService;
 import io.robbinespu.ess.util.RestControllerHelper;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +30,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -45,9 +44,9 @@ public class SlotRestController extends RestControllerHelper {
 
   @Autowired
   public SlotRestController(
-          SlotService slotService,
-          SubjectsService subjectsService,
-          ClassSubjectListService classSubjectListService) {
+      SlotService slotService,
+      SubjectsService subjectsService,
+      ClassSubjectListService classSubjectListService) {
     super();
     this.slotService = slotService;
     this.subjectsService = subjectsService;
@@ -59,27 +58,27 @@ public class SlotRestController extends RestControllerHelper {
    */
   @GetMapping(value = "/slots/{formYear}/{subjectId}")
   public ResponseEntity<Map> showSlotForFormYearSubjectId(
-          @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
+      @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
     HashMap<String, Slots> map = new HashMap<>();
     logger.debug(
-            "ROB ==> findByFormAndName = {}", subjectsService.findByFormAndName(formYear, subjectId));
+        "ROB ==> findByFormAndName = {}", subjectsService.findByFormAndName(formYear, subjectId));
 
     subjectsService
-            .findByFormAndName(formYear, subjectId)
-            .orElseThrow(() -> new CustomRestException("form and subject is not exist on system"));
+        .findByFormAndName(formYear, subjectId)
+        .orElseThrow(() -> new CustomRestException("form and subject is not exist on system"));
 
     classSubjectListService
-            .classSubjectListRepo
-            .findBySubjectIdAndFormYear(subjectId, formYear)
-            .orElseThrow(() -> new CustomRestException("classSubjectList is not exist on system"));
+        .classSubjectListRepo
+        .findBySubjectIdAndFormYear(subjectId, formYear)
+        .orElseThrow(() -> new CustomRestException("classSubjectList is not exist on system"));
 
     Optional<ClassSubjectList> classSubjectListDb =
-            classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
-                    subjectId, formYear);
+        classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
+            subjectId, formYear);
     List<Slots> slotsDb = slotService.findByClassSubjectList(classSubjectListDb);
     for (Slots i : slotsDb) {
       map.put(
-              i.getName(), i); // honestly, I dont understand my code here, but the JSON out as I wanted
+          i.getName(), i); // honestly, I dont understand my code here, but the JSON out as I wanted
     }
     map.putAll(SendStatusSuccess("Slot available, please check"));
     return new ResponseEntity<>(map, HttpStatus.OK);
@@ -90,7 +89,7 @@ public class SlotRestController extends RestControllerHelper {
    */
   @GetMapping(value = "/slots/{formYear}/{subjectId}/DFS")
   public ResponseEntity<Map> showSlotForFormYearSubjectIdViaDFS(
-          @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
+      @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
     HashMap<String, String> map = new HashMap<>();
     map.putAll(SendStatusSuccess("Slot available (Picked by DFS), don't forget to book"));
     return new ResponseEntity<>(map, HttpStatus.OK);
