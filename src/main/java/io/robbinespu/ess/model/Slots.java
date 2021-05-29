@@ -13,12 +13,11 @@ package io.robbinespu.ess.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
-import lombok.*;
-import org.hibernate.annotations.GenericGenerator;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.*;
+import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Getter

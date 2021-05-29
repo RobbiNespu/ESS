@@ -13,14 +13,13 @@ package io.robbinespu.ess.repo;
 
 import io.robbinespu.ess.model.ClassSubjectList;
 import io.robbinespu.ess.model.Slots;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
-
 @Repository
 public interface SlotRepo extends JpaRepository<Slots, String> {
-    List<Slots> ClassSubjectList(Optional<ClassSubjectList> classSubjectList);
-    // List<Slots> findByClassSubjectList(String class_subject_list_id); - BUGGY!
+  List<Slots> ClassSubjectList(Optional<ClassSubjectList> classSubjectList);
+  // List<Slots> findByClassSubjectList(String class_subject_list_id); - BUGGY!
 }

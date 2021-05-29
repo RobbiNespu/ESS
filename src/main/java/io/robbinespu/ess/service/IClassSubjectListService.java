@@ -12,11 +12,10 @@
 package io.robbinespu.ess.service;
 
 import io.robbinespu.ess.model.ClassSubjectList;
-
 import java.util.Optional;
 
 public interface IClassSubjectListService {
-    ClassSubjectList save(ClassSubjectList classSubjectList);
+  ClassSubjectList save(ClassSubjectList classSubjectList);
 
-    Optional<ClassSubjectList> findBySubjectId(String subjectId, int formYear);
+  Optional<ClassSubjectList> findBySubjectId(String subjectId, int formYear);
 }

@@ -30,7 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ClassSubjectListRestController {
   // User-defined SerialVersionUID
   private static final long serialVersionUID = 42L;
-  private static final Logger logger = LoggerFactory.getLogger(ClassSubjectListRestController.class);
+  private static final Logger logger =
+      LoggerFactory.getLogger(ClassSubjectListRestController.class);
   ClassSubjectListService classSubjectListService;
   FormsService formsService;
   UserService userService;
@@ -38,10 +39,10 @@ public class ClassSubjectListRestController {
 
   @Autowired
   public ClassSubjectListRestController(
-          ClassSubjectListService classSubjectListService,
-          FormsService formsService,
-          UserService userService,
-          RoleService roleService) {
+      ClassSubjectListService classSubjectListService,
+      FormsService formsService,
+      UserService userService,
+      RoleService roleService) {
     super();
     this.classSubjectListService = classSubjectListService;
     this.formsService = formsService;
