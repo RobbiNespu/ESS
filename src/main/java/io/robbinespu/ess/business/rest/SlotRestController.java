@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SlotRestController
- * Last modified:  5/29/21, 10:41 AM
+ * Last modified:  5/29/21, 11:19 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -11,6 +11,8 @@
 
 package io.robbinespu.ess.business.rest;
 
+import io.robbinespu.ess.model.ClassSubjectList;
+import io.robbinespu.ess.model.Slots;
 import io.robbinespu.ess.service.ClassSubjectListService;
 import io.robbinespu.ess.service.SlotService;
 import io.robbinespu.ess.service.SubjectsService;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -62,6 +65,11 @@ public class SlotRestController extends RestControllerHelper {
     classSubjectListService.classSubjectListRepo
             .findBySubjectIdAndFormYear(subjectId, formYear)
             .orElseThrow(() -> new CustomRestException("classSubjectList is not exist on system"));
+
+    Optional<ClassSubjectList> classSubjectListDb = classSubjectListService.classSubjectListRepo
+            .findBySubjectIdAndFormYear(subjectId, formYear);
+    Optional<Slots> slots = slotService.findByClassSubjectList(classSubjectListDb.get().getId());
+
 
     return SendStatusSuccess("OK IT WORKING");
   }

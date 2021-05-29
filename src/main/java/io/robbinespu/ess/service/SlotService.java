@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.service.SlotService
- * Last modified:  5/29/21, 12:17 AM
+ * Last modified:  5/29/21, 10:57 AM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -15,6 +15,8 @@ import io.robbinespu.ess.model.Slots;
 import io.robbinespu.ess.repo.SlotRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class SlotService implements ISlotsService {
@@ -28,5 +30,10 @@ public class SlotService implements ISlotsService {
   @Override
   public Slots save(Slots slots) {
     return this.slotRepo.save(slots);
+  }
+
+  @Override
+  public Optional<Slots> findByClassSubjectList(String class_subject_list_id) {
+    return this.slotRepo.findByClassSubjectList(class_subject_list_id);
   }
 }
