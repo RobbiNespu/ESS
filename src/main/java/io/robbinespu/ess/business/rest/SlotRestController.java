@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SlotRestController
- * Last modified:  5/29/21, 11:19 AM
+ * Last modified:  5/29/21, 2:46 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -11,6 +11,7 @@
 
 package io.robbinespu.ess.business.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.robbinespu.ess.model.ClassSubjectList;
 import io.robbinespu.ess.model.Slots;
 import io.robbinespu.ess.service.ClassSubjectListService;
@@ -20,11 +21,15 @@ import io.robbinespu.ess.util.RestControllerHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -52,9 +57,9 @@ public class SlotRestController extends RestControllerHelper {
   }
 
   @GetMapping(value = "/slots/{formYear}/{subjectId}")
-  public Map showSlotForFormYearSubjectId(
-      @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
-
+  public ResponseEntity<Map> showSlotForFormYearSubjectId(
+          @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) throws JsonProcessingException {
+    HashMap<String, Slots> map = new HashMap<>();
     logger.debug(
             "ROB ==> findByFormAndName = {}", subjectsService.findByFormAndName(formYear, subjectId));
 
@@ -68,9 +73,15 @@ public class SlotRestController extends RestControllerHelper {
 
     Optional<ClassSubjectList> classSubjectListDb = classSubjectListService.classSubjectListRepo
             .findBySubjectIdAndFormYear(subjectId, formYear);
-    Optional<Slots> slots = slotService.findByClassSubjectList(classSubjectListDb.get().getId());
+    logger.debug("ROB => X {}", classSubjectListDb.get().getId());
+    List<Slots> slotsDb = slotService.findByClassSubjectList(classSubjectListDb);
+    logger.debug("ROB => Y {}", slotsDb.toArray());
 
-
-    return SendStatusSuccess("OK IT WORKING");
+    String userJson = ConvertToJsonString(slotsDb);
+    for (Slots i : slotsDb) {
+      map.put(i.getId(), i);  // honestly, I dont understand my code here, but the JSON out as I wanted
+    }
+    map.putAll(SendStatusSuccess("Slot available, please check"));
+    return new ResponseEntity<>(map, HttpStatus.OK);
   }
 }
