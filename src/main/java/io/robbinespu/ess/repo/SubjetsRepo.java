@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.repo.SubjetsRepo
- * Last modified:  5/27/21, 6:30 PM
+ * Last modified:  5/28/21, 10:34 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -27,8 +27,8 @@ public interface SubjetsRepo extends JpaRepository<Subjects, String> {
 
   @Query(
       value =
-          "SELECT * FROM `subjects` WHERE `form` = :searchForm AND `name` = :searchSubjectName"
-              + " LIMIT 1",
+          "SELECT * FROM `subjects` WHERE `form` = :searchForm AND `id` = :searchSubjectName LIMIT"
+              + " 1",
       nativeQuery = true)
   Optional<Subjects> findByFormAndName(
       @Param("searchForm") Integer form, @Param("searchSubjectName") String subjectName);

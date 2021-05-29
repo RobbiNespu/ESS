@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Slots
- * Last modified:  5/28/21, 3:07 AM
+ * Last modified:  5/29/21, 2:46 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -11,14 +11,12 @@
 
 package io.robbinespu.ess.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -26,6 +24,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Table(name = "slots")
 public class Slots implements Serializable {
   // User-defined SerialVersionUID
@@ -49,10 +48,16 @@ public class Slots implements Serializable {
       })
   private String id;
 
-  private String name;
-  private int classId;
-  private int subjectId;
-  private boolean booked;
+  private String bookedBy;
+  private Date bookedDate;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "classSubjectList_Id")
+  @JsonManagedReference
+  private ClassSubjectList classSubjectList;
+
   private boolean active;
+  private boolean booked;
   private Date examDate;
+  private String name;
 }

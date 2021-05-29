@@ -1,0 +1,347 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2021-05-28T14:38:46.741Z",
+  "__export_source": "insomnia.desktop.app:v2021.3.0",
+  "resources": [
+    {
+      "_id": "req_bf580cebc2284fb99e485d2097a6ecff",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1621936810351,
+      "created": 1621936703093,
+      "url": "localhost:9000/api/users",
+      "name": "GET users",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802542,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "parentId": null,
+      "modified": 1621936680253,
+      "created": 1621936680253,
+      "name": "ESS",
+      "description": "",
+      "scope": "collection",
+      "_type": "workspace"
+    },
+    {
+      "_id": "req_e703ab0deca647d19f4f0f2aef82a9df",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622178385004,
+      "created": 1621936802492,
+      "url": "localhost:9000/api/users",
+      "name": "Add user (student F1)",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"ahmad\",\n\t\"email\": \"ahmad@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"student\",\n\t\t\"forms\": {\n\t\t\t\"name\": \"F1K1\",\n\t\t\t\"formYear\": 1\n\t\t}\n\t},\n\t\"username\": \"ahmad\",\n\t\"password\": \"pass12345\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a41425849237411f9be5766aef0fa5b3"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802492,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_5c81816c8b43402497c551fd07060cf5",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622178378497,
+      "created": 1622135063661,
+      "url": "localhost:9000/api/users",
+      "name": "Add user (student F2)",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"shizuka\",\n\t\"email\": \"shizuka@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"student\",\n\t\t\"forms\": {\n\t\t\t\"name\": \"F2K1\",\n\t\t\t\"formYear\": 2\n\t\t}\n\t},\n\t\"username\": \"shizuka\",\n\t\"password\": \"pass12345\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_a41425849237411f9be5766aef0fa5b3"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802467,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_e067fb7909a847e9bcd54cb1eecfb4c3",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622178373730,
+      "created": 1621936922251,
+      "url": "localhost:9000/api/users",
+      "name": "Add teacher",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"name\": \"suraya\",\n\t\"email\": \"suraya@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"teacher\"\n\t},\n\t\"username\": \"suraya\",\n\t\"password\": \"pass12345\"\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_95627daf49744b1f8f0ae1a6dd4522da"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802442,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_cb2b2deb16c149289e3dc27d6a8c4e44",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622190800449,
+      "created": 1621936994489,
+      "url": "localhost:9000/api/subjects/class",
+      "name": "Add subject 1",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"course\": {\n\t\t\"formId\": \"form_001\",\n\t\t\"teacherId\": \"user_003\",\n\t\t\"subject_name\": \"SCIENCE\",\n\t\t\"hour\": 1\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_f8b263b6f27e4b3796921bff0b9e518d"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802417,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_1d39a35e3b634f1fb630b24c78c3c79d",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622140461062,
+      "created": 1622018605501,
+      "url": "localhost:9000/api/subjects/class",
+      "name": "Add subject 2",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"course\": {\n\t\t\"formId\": \"form_001\",\n\t\t\"teacherId\": \"user_003\",\n\t\t\"subject_name\": \"MATH\",\n\t\t\"hour\": 2\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json",
+          "id": "pair_f8b263b6f27e4b3796921bff0b9e518d"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802342,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_515678d97fe248d8ac74f8fe3ef4cb11",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622210146989,
+      "created": 1622018784427,
+      "url": "localhost:9000/api/subjects/class",
+      "name": "Add subject 3",
+      "description": "",
+      "method": "POST",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"course\": {\n\t\t\"formId\": \"form_001\",\n\t\t\"teacherId\": \"user_003\",\n\t\t\"subject_name\": \"HISTORY\",\n\t\t\"hour\": 3\n\t}\n}"
+      },
+      "parameters": [],
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802292,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "req_02781e99448c43a9976e54d4fa943492",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622212383534,
+      "created": 1622191275739,
+      "url": "localhost:9000/api/slots/1/subject_001",
+      "name": "GET slot (/1/subject_001)",
+      "description": "",
+      "method": "GET",
+      "body": {},
+      "parameters": [],
+      "headers": [],
+      "authentication": {
+        "type": "basic",
+        "useISO88591": false,
+        "disabled": false,
+        "username": "admin",
+        "password": "admin"
+      },
+      "metaSortKey": -1621936802242,
+      "isPrivate": false,
+      "settingStoreCookies": true,
+      "settingSendCookies": true,
+      "settingDisableRenderRequestBody": false,
+      "settingEncodeUrl": true,
+      "settingRebuildPath": true,
+      "settingFollowRedirects": "global",
+      "_type": "request"
+    },
+    {
+      "_id": "env_337faa5cd512b74784e2913c8afdccadad5046b7",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1621936680378,
+      "created": 1621936680378,
+      "name": "Base Environment",
+      "data": {},
+      "dataPropertyOrder": null,
+      "color": null,
+      "isPrivate": false,
+      "metaSortKey": 1621936680378,
+      "_type": "environment"
+    },
+    {
+      "_id": "jar_337faa5cd512b74784e2913c8afdccadad5046b7",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1622210237642,
+      "created": 1621936680379,
+      "name": "Default Jar",
+      "cookies": [
+        {
+          "key": "JSESSIONID",
+          "value": "75A212299CABD9FF188A9693187FCC43",
+          "domain": "localhost",
+          "path": "/",
+          "httpOnly": true,
+          "hostOnly": true,
+          "creation": "2021-05-25T09:59:10.600Z",
+          "lastAccessed": "2021-05-28T13:57:17.641Z",
+          "id": "9081356484840901"
+        }
+      ],
+      "_type": "cookie_jar"
+    },
+    {
+      "_id": "spc_7b3239d72ce74773b2a4ac5447942baf",
+      "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
+      "modified": 1621936680262,
+      "created": 1621936680262,
+      "fileName": "ESS",
+      "contents": "",
+      "contentType": "yaml",
+      "_type": "api_spec"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
   ~
   ~ Project :  Advance Software Development - Exam Scheduling System with DFS
   ~ Class name :  /home/robbi/Documents/workplace/java/ESS/pom.xml
-  ~ Last modified:  5/27/21, 5:26 PM
+  ~ Last modified:  5/29/21, 1:45 PM
   ~ User : Robbi Nespu < robbinespu@gmail.com >
   ~
   ~ License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -28,6 +28,11 @@
         <java.version>11</java.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
         <dependency>
             <groupId>org.jacoco</groupId>
             <artifactId>org.jacoco.report</artifactId>
@@ -85,6 +90,10 @@
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.7</version>
+        </dependency>
+        <dependency>
+            <groupId>org.xmlunit</groupId>
+            <artifactId>xmlunit-core</artifactId>
         </dependency>
 
 
