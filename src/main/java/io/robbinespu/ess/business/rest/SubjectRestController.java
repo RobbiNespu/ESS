@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SubjectRestController
- * Last modified:  5/29/21, 12:33 AM
+ * Last modified:  5/29/21, 9:26 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -17,17 +17,18 @@ import io.robbinespu.ess.model.*;
 import io.robbinespu.ess.service.*;
 import io.robbinespu.ess.util.ObjectToJsonObjectNode;
 import io.robbinespu.ess.util.RestControllerHelper;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -171,6 +172,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl7.setClassSubjectList(classSubjectList);
       sl7.setName("SLOT7");
       slotService.save(sl7);
+      slots7.setSlotId(sl7.getId());
       nodeService.save(slots7);
     } else if (hour == 2) {
       Nodes slots1 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT1", 5); // SL1
@@ -179,6 +181,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl1.setClassSubjectList(classSubjectList);
       sl1.setName("SLOT1");
       slotService.save(sl1);
+      slots1.setSlotId(sl1.getId());
       nodeService.save(slots1);
       Nodes slots3 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT3", 5); // SL3
       Slots sl3 = new Slots();
@@ -186,6 +189,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl3.setClassSubjectList(classSubjectList);
       sl3.setName("SLOT3");
       slotService.save(sl3);
+      slots3.setSlotId(sl3.getId());
       nodeService.save(slots3);
       Nodes slots6 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT6", 5); // SL6
       Slots sl6 = new Slots();
@@ -193,6 +197,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl6.setClassSubjectList(classSubjectList);
       sl6.setName("SLOT6");
       slotService.save(sl6);
+      slots6.setSlotId(sl6.getId());
       nodeService.save(slots6);
     } else if (hour == 3) {
       Nodes slots2 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT2", 5); // SL2
@@ -201,6 +206,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl2.setClassSubjectList(classSubjectList);
       sl2.setName("SLOT2");
       slotService.save(sl2);
+      slots2.setSlotId(sl2.getId());
       nodeService.save(slots2);
       Nodes slots4 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT4", 5); // SL4
       Slots sl4 = new Slots();
@@ -208,6 +214,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl4.setClassSubjectList(classSubjectList);
       sl4.setName("SLOT4");
       slotService.save(sl4);
+      slots4.setSlotId(sl4.getId());
       nodeService.save(slots4);
       Nodes slots5 = new Nodes(nodeSubjectGroup.getChild().toString(), "SLOT5", 5); // SL5
       Slots sl5 = new Slots();
@@ -215,6 +222,7 @@ public class SubjectRestController extends RestControllerHelper {
       sl5.setClassSubjectList(classSubjectList);
       sl5.setName("SLOT5");
       slotService.save(sl5);
+      slots5.setSlotId(sl5.getId());
       nodeService.save(slots5);
     } else {
       // heck!

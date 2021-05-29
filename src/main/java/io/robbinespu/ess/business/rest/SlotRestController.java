@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.business.rest.SlotRestController
- * Last modified:  5/29/21, 6:52 PM
+ * Last modified:  5/29/21, 9:26 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -96,6 +96,10 @@ public class SlotRestController extends RestControllerHelper {
       @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
     HashMap<String, String> map = new HashMap<>();
 
+    Optional<ClassSubjectList> classSubjectListDb =
+            classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
+                    subjectId, formYear);
+
     // Get all nodes
     List<Nodes> nodesDb = nodeService.nodeRepo.findAll();
 
@@ -113,10 +117,61 @@ public class SlotRestController extends RestControllerHelper {
       logger.debug("lets check the nodes[{}] = ({}, {})", i, nodesDb.get(i).getParent(), nodesDb.get(i).getChild());
       mapDFS = d.link(mapDFS, nodesDb.get(i).getParent(), nodesDb.get(i).getChild());
     }
-    path = d.dfs(mapDFS, "X", subjectId);
+    path = d.dfs(mapDFS, "X", "G" + classSubjectListDb.get().getGroupSlot());
     d.print(mapDFS, path);
 
     map.putAll(SendStatusSuccess("Slot available (Picked by DFS), don't forget to book"));
+    return new ResponseEntity<>(map, HttpStatus.OK);
+  }
+
+  @GetMapping(value = "/slots/{formYear}/{subjectId}/DFS/suggest")
+  public ResponseEntity<Map> showSlotForFormYearSubjectIdViaDFSsuggest(
+          @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
+    HashMap<String, String> map = new HashMap<>();
+
+    Optional<ClassSubjectList> classSubjectListDb =
+            classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
+                    subjectId, formYear);
+
+    // Get all nodes
+    List<Nodes> nodesDb = nodeService.nodeRepo.findAll();
+
+    // get related slot
+    List<Slots> slotsDb = slotService.findByClassSubjectList(classSubjectListDb);
+
+    // Some fun with statistics
+    logger.debug("we have {} total node stored", nodesDb.size());
+    logger.debug("we have {} parent node to process", nodeService.nodeRepo.sizeParentSubject(subjectId));
+
+    // grab parent,child and link!
+    DepthFirstSearch d = new DepthFirstSearch();
+    HashMap<String, ArrayList<String>> path = new HashMap<String, ArrayList<String>>();
+    Map<String, ArrayList<String>> mapDFS;
+    mapDFS = new HashMap<String, ArrayList<String>>();
+
+    for (int i = 0; i < nodesDb.size(); i++) {
+      if (nodesDb.get(i).getSlotId() != null) {
+        //logger.debug(" node --> {}",nodesDb.get(i).getSlotId());
+        //logger.debug(" slot --> {}",slotsDb.size());
+        for (int j = 0; j < slotsDb.size(); j++) {
+          //logger.debug("check slot => {} ",slotsDb.get(j).getId());
+          if (nodesDb.get(i).getSlotId().equalsIgnoreCase(slotsDb.get(j).getId())) {
+            logger.debug("check me => {} / {} ", nodesDb.get(i).getSlotId(), slotsDb.get(j).getId());
+            if (!slotsDb.get(j).isBooked() && slotsDb.get(j).isActive()) {
+              map.put("slotId", slotsDb.get(j).getId());
+              map.put("slot name", slotsDb.get(j).getName());
+              break;
+            } else {
+              logger.error("no slot anymore!");
+              map.putAll(SendStatusFailed("No slot available"));
+            }
+          }
+        }
+      }
+
+    }
+
+    //map.putAll(SendStatusSuccess("Slot available (Picked by DFS), don't forget to book"));
     return new ResponseEntity<>(map, HttpStatus.OK);
   }
 }
