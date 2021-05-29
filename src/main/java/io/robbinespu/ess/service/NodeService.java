@@ -18,20 +18,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class NodeService implements INodeServices {
-    public final NodeRepo nodeRepo;
+  public final NodeRepo nodeRepo;
 
-    @Autowired
-    public NodeService(NodeRepo nodeRepo) {
-        this.nodeRepo = nodeRepo;
-    }
+  @Autowired
+  public NodeService(NodeRepo nodeRepo) {
+    this.nodeRepo = nodeRepo;
+  }
 
-    @Override
-    public Nodes save(Nodes nodes) {
-        return nodeRepo.save(nodes);
-    }
+  @Override
+  public Nodes save(Nodes nodes) {
+    return nodeRepo.save(nodes);
+  }
 
-    @Override
-    public int sizeParentSubject(String subjectId) {
-        return this.nodeRepo.sizeParentSubject(subjectId);
-    }
+  @Override
+  public int sizeParentSubject(String subjectId) {
+    return this.nodeRepo.sizeParentSubject(subjectId);
+  }
 }

@@ -17,9 +17,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface NodeRepo extends JpaRepository<Nodes, String> {
-    @Query(value = "SELECT COUNT(*) FROM `nodes` WHERE `parent` = :searchSubjectId", nativeQuery = true)
-    int sizeParentSubject(@Param("searchSubjectId") String searchSubjectId);
+  @Query(
+      value = "SELECT COUNT(*) FROM `nodes` WHERE `parent` = :searchSubjectId",
+      nativeQuery = true)
+  int sizeParentSubject(@Param("searchSubjectId") String searchSubjectId);
 
-    @Query(value = "SELECT COUNT(*) FROM `nodes` WHERE `parent` = :searchSubjectId", nativeQuery = true)
-    int sizeChildSubject(@Param("searchSubjectId") String searchSubjectId);
+  @Query(
+      value = "SELECT COUNT(*) FROM `nodes` WHERE `parent` = :searchSubjectId",
+      nativeQuery = true)
+  int sizeChildSubject(@Param("searchSubjectId") String searchSubjectId);
 }

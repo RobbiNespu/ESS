@@ -11,23 +11,23 @@
 
 package io.robbinespu.ess.util;
 
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class DepthFirstSearch {
   private static final Logger logger = LoggerFactory.getLogger(DepthFirstSearch.class);
   public Map<String, ArrayList<String>> map;
 
   public void DepthFirstSearch() {
-    //map = new HashMap<String, ArrayList<String>>();
-    //initialize();
+    // map = new HashMap<String, ArrayList<String>>();
+    // initialize();
     logger.debug("DFS initialize !!!");
-    //return map;
+    // return map;
   }
 
-  public void initialize() {/*
+  public void initialize() {
+    /*
     String csvFile = "./data.txt";
     BufferedReader bf = null;
     String line = "";
@@ -52,7 +52,8 @@ public class DepthFirstSearch {
     */
   }
 
-  public Map<String, ArrayList<String>> link(Map<String, ArrayList<String>> map, String src, String dest) {
+  public Map<String, ArrayList<String>> link(
+      Map<String, ArrayList<String>> map, String src, String dest) {
     insert(map, src);
     insert(map, dest);
     map.get(src).add(dest);
@@ -78,7 +79,8 @@ public class DepthFirstSearch {
     return (ArrayList<String>) neighbours.clone();
   }
 
-  public HashMap<String, ArrayList<String>> dfs(Map<String, ArrayList<String>> map, String src, String dest) {
+  public HashMap<String, ArrayList<String>> dfs(
+      Map<String, ArrayList<String>> map, String src, String dest) {
 
     ArrayList<String> path = new ArrayList<String>();
     ArrayList<String> visited = new ArrayList<String>();
