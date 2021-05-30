@@ -11,10 +11,9 @@
 
 package io.robbinespu.ess.util;
 
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class DepthFirstSearch {
   private static final Logger logger = LoggerFactory.getLogger(DepthFirstSearch.class);
@@ -44,7 +43,7 @@ public class DepthFirstSearch {
   public ArrayList<String> getNeighbours(Map<String, ArrayList<String>> map, String node) {
     ArrayList<String> neighbours = map.get(node);
     Collections.sort(neighbours);
-    //logger.trace(node + " neighbors: " + neighbours); // uncomment to see node neighboor
+    // logger.trace(node + " neighbors: " + neighbours); // uncomment to see node neighboor
     return (ArrayList<String>) neighbours.clone();
   }
 
@@ -98,7 +97,8 @@ public class DepthFirstSearch {
     logger.debug("\n1. path are expanded in the following order:\n" + h.get("Visited"));
     // Above statement does not print destination node since it is only explored and not expanded.
     logger.debug("\n2. Total number of node expanded : " + h.get("Visited").size());
-    logger.debug("\n3. The path to reach " + path.get(0) + " from " + path.get(path.size() - 1) + " is :");
+    logger.debug(
+        "\n3. The path to reach " + path.get(0) + " from " + path.get(path.size() - 1) + " is :");
 
     for (int i = 0; i < path.size(); i++) {
       logger.debug(path.get(i));
