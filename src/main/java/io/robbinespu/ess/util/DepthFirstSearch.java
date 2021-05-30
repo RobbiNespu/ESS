@@ -11,9 +11,6 @@
 
 package io.robbinespu.ess.util;
 
-import io.robbinespu.ess.model.Slots;
-import io.robbinespu.ess.repo.ClassSubjectListRepo;
-import io.robbinespu.ess.repo.SlotRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,9 +18,8 @@ import java.util.*;
 
 public class DepthFirstSearch {
   private static final Logger logger = LoggerFactory.getLogger(DepthFirstSearch.class);
-  public Map<String, ArrayList<String>> map;
 
-  public void DepthFirstSearch() {
+  public DepthFirstSearch() {
     logger.debug("DFS initialize !!!");
   }
 
@@ -39,7 +35,7 @@ public class DepthFirstSearch {
   public void insert(Map<String, ArrayList<String>> map, String node) {
     logger.debug("DFS insert node = {}", node);
     if (!map.containsKey(node)) {
-      ArrayList<String> list = new ArrayList<String>();
+      ArrayList<String> list = new ArrayList<>();
       map.put(node, list);
     }
   }
@@ -52,26 +48,12 @@ public class DepthFirstSearch {
     return (ArrayList<String>) neighbours.clone();
   }
 
-  public ArrayList<String> getNeighboursV2SlotAutoView(
-          Map<String, ArrayList<String>> map, String node, String class_subject_list_id) {
-    ArrayList<String> neighbours = map.get(node);
-    Collections.sort(neighbours);
-    //logger.trace(node + " neighbors: " + neighbours); // uncomment to see node neighboor
-    Slots slots = new Slots();
-    SlotRepo slotRepo;
-    ClassSubjectListRepo classSubjectListRepo = null;
-    classSubjectListRepo.findById(class_subject_list_id).get().getGroupSlot();
-    for (int i = 0; i < neighbours.size(); i++) {
-    }
-    return (ArrayList<String>) neighbours.clone();
-  }
-
   public HashMap<String, ArrayList<String>> dfs(
       Map<String, ArrayList<String>> map, String src, String dest) {
-    ArrayList<String> path = new ArrayList<String>();
-    ArrayList<String> visited = new ArrayList<String>();
-    HashMap<String, ArrayList<String>> h = new HashMap<String, ArrayList<String>>();
-    Stack<List<String>> s = new Stack<List<String>>();
+    ArrayList path = new ArrayList<>();
+    ArrayList<String> visited = new ArrayList<>();
+    HashMap<String, ArrayList<String>> h = new HashMap<>();
+    Stack<List<String>> s = new Stack<>();
 
     path.add(src);
     s.push(path);
@@ -85,7 +67,7 @@ public class DepthFirstSearch {
       }
 
       path = (ArrayList) s.pop();
-      String last = path.get(path.size() - 1);
+      String last = (String) path.get(path.size() - 1);
 
       if (last.equals(dest)) {
         h.put("Visited", visited);
@@ -93,14 +75,14 @@ public class DepthFirstSearch {
         return h;
       }
 
-      if (visited.indexOf(last) == -1) visited.add(last);
+      if (!visited.contains(last)) visited.add(last);
 
       ArrayList<String> neighbours = getNeighbours(map, last);
 
       for (int i = neighbours.size() - 1; i >= 0; i--) {
         String n = neighbours.get(i);
-        if (visited.indexOf(n) == -1) {
-          List<String> newpath = (ArrayList) path.clone();
+        if (!visited.contains(n)) {
+          List<String> newpath = (ArrayList<String>) path.clone();
           newpath.add(n);
           s.add(newpath);
         }
