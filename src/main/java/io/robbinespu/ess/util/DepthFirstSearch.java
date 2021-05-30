@@ -11,10 +11,9 @@
 
 package io.robbinespu.ess.util;
 
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class DepthFirstSearch {
   private static final Logger logger = LoggerFactory.getLogger(DepthFirstSearch.class);
@@ -98,7 +97,8 @@ public class DepthFirstSearch {
     logger.debug("1. path are expanded in the following order:" + h.get("Visited"));
     // Above statement does not print destination node since it is only explored and not expanded.
     logger.debug("2. Total number of node expanded : " + h.get("Visited").size());
-    logger.debug("3. The path to reach " + path.get(0) + " from " + path.get(path.size() - 1) + " is :");
+    logger.debug(
+        "3. The path to reach " + path.get(0) + " from " + path.get(path.size() - 1) + " is :");
 
     for (int i = 0; i < path.size(); i++) {
       logger.debug(path.get(i));
