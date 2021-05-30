@@ -16,4 +16,5 @@ after_success:
   # This example is with respect to Gradle.
   # The report directory will be different for Maven.
   - ./bin/deepsource report --analyzer test-coverage --key java --value-file ./target/site/jacoco/jacoco.xml
+  - bash <(curl -s https://codecov.io/bash)
 
