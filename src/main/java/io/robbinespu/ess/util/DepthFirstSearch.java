@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.util.DepthFirstSearch
- * Last modified:  5/29/21, 6:52 PM
+ * Last modified:  5/29/21, 9:26 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -11,6 +11,9 @@
 
 package io.robbinespu.ess.util;
 
+import io.robbinespu.ess.model.Slots;
+import io.robbinespu.ess.repo.ClassSubjectListRepo;
+import io.robbinespu.ess.repo.SlotRepo;
 import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,7 +78,23 @@ public class DepthFirstSearch {
     ArrayList<String> neighbours = map.get(node);
 
     Collections.sort(neighbours);
-    System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
+    // System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
+    return (ArrayList<String>) neighbours.clone();
+  }
+
+  public ArrayList<String> getNeighboursV2SlotAutoView(
+      Map<String, ArrayList<String>> map, String node, String class_subject_list_id) {
+    ArrayList<String> neighbours = map.get(node);
+    Collections.sort(neighbours);
+    // System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
+
+    Slots slots = new Slots();
+    SlotRepo slotRepo;
+    ClassSubjectListRepo classSubjectListRepo = null;
+    classSubjectListRepo.findById(class_subject_list_id).get().getGroupSlot();
+
+    for (int i = 0; i < neighbours.size(); i++) {}
+
     return (ArrayList<String>) neighbours.clone();
   }
 

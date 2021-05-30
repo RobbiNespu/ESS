@@ -3,7 +3,7 @@
  *
  * Project :  Advance Software Development - Exam Scheduling System with DFS
  * Class name :  io.robbinespu.ess.model.Nodes
- * Last modified:  5/28/21, 11:55 PM
+ * Last modified:  5/29/21, 9:26 PM
  * User : Robbi Nespu < robbinespu@gmail.com >
  *
  * License : https://github.com/RobbiNespu/ESS/LICENSE
@@ -51,6 +51,7 @@ public class Nodes implements Serializable {
   private String parent;
   private String child;
   private int level;
+  private String slotId;
 
   public Nodes(String parent, String child, int level) {
     this.parent = parent;
