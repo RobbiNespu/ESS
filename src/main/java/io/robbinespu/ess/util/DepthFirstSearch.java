@@ -14,23 +14,23 @@ package io.robbinespu.ess.util;
 import io.robbinespu.ess.model.Slots;
 import io.robbinespu.ess.repo.ClassSubjectListRepo;
 import io.robbinespu.ess.repo.SlotRepo;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.*;
 
 public class DepthFirstSearch {
   private static final Logger logger = LoggerFactory.getLogger(DepthFirstSearch.class);
   public Map<String, ArrayList<String>> map;
 
   public void DepthFirstSearch() {
-    //map = new HashMap<String, ArrayList<String>>();
-    //initialize();
+    // map = new HashMap<String, ArrayList<String>>();
+    // initialize();
     logger.debug("DFS initialize !!!");
-    //return map;
+    // return map;
   }
 
-  public void initialize() {/*
+  public void initialize() {
+    /*
     String csvFile = "./data.txt";
     BufferedReader bf = null;
     String line = "";
@@ -55,7 +55,8 @@ public class DepthFirstSearch {
     */
   }
 
-  public Map<String, ArrayList<String>> link(Map<String, ArrayList<String>> map, String src, String dest) {
+  public Map<String, ArrayList<String>> link(
+      Map<String, ArrayList<String>> map, String src, String dest) {
     insert(map, src);
     insert(map, dest);
     map.get(src).add(dest);
@@ -77,29 +78,28 @@ public class DepthFirstSearch {
     ArrayList<String> neighbours = map.get(node);
 
     Collections.sort(neighbours);
-    //System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
+    // System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
     return (ArrayList<String>) neighbours.clone();
   }
 
-  public ArrayList<String> getNeighboursV2SlotAutoView(Map<String, ArrayList<String>> map, String node, String class_subject_list_id) {
+  public ArrayList<String> getNeighboursV2SlotAutoView(
+      Map<String, ArrayList<String>> map, String node, String class_subject_list_id) {
     ArrayList<String> neighbours = map.get(node);
     Collections.sort(neighbours);
-    //System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
+    // System.out.println(node + " neighbors: " + neighbours); // uncomment to see node neighboor
 
     Slots slots = new Slots();
     SlotRepo slotRepo;
     ClassSubjectListRepo classSubjectListRepo = null;
     classSubjectListRepo.findById(class_subject_list_id).get().getGroupSlot();
 
-
-    for (int i = 0; i < neighbours.size(); i++) {
-
-    }
+    for (int i = 0; i < neighbours.size(); i++) {}
 
     return (ArrayList<String>) neighbours.clone();
   }
 
-  public HashMap<String, ArrayList<String>> dfs(Map<String, ArrayList<String>> map, String src, String dest) {
+  public HashMap<String, ArrayList<String>> dfs(
+      Map<String, ArrayList<String>> map, String src, String dest) {
 
     ArrayList<String> path = new ArrayList<String>();
     ArrayList<String> visited = new ArrayList<String>();

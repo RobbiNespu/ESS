@@ -20,6 +20,7 @@ import io.robbinespu.ess.service.SlotService;
 import io.robbinespu.ess.service.SubjectsService;
 import io.robbinespu.ess.util.DepthFirstSearch;
 import io.robbinespu.ess.util.RestControllerHelper;
+import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.*;
 
 @RestController
 @RequestMapping("/api")
@@ -46,10 +45,10 @@ public class SlotRestController extends RestControllerHelper {
 
   @Autowired
   public SlotRestController(
-          SlotService slotService,
-          SubjectsService subjectsService,
-          ClassSubjectListService classSubjectListService,
-          NodeService nodeService) {
+      SlotService slotService,
+      SubjectsService subjectsService,
+      ClassSubjectListService classSubjectListService,
+      NodeService nodeService) {
     super();
     this.slotService = slotService;
     this.subjectsService = subjectsService;
@@ -97,15 +96,16 @@ public class SlotRestController extends RestControllerHelper {
     HashMap<String, String> map = new HashMap<>();
 
     Optional<ClassSubjectList> classSubjectListDb =
-            classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
-                    subjectId, formYear);
+        classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
+            subjectId, formYear);
 
     // Get all nodes
     List<Nodes> nodesDb = nodeService.nodeRepo.findAll();
 
     // Some fun with statistics
     logger.debug("we have {} total node stored", nodesDb.size());
-    logger.debug("we have {} parent node to process", nodeService.nodeRepo.sizeParentSubject(subjectId));
+    logger.debug(
+        "we have {} parent node to process", nodeService.nodeRepo.sizeParentSubject(subjectId));
 
     // grab parent,child and link!
     DepthFirstSearch d = new DepthFirstSearch();
@@ -114,7 +114,11 @@ public class SlotRestController extends RestControllerHelper {
     mapDFS = new HashMap<String, ArrayList<String>>();
 
     for (int i = 0; i < nodesDb.size(); i++) {
-      logger.debug("lets check the nodes[{}] = ({}, {})", i, nodesDb.get(i).getParent(), nodesDb.get(i).getChild());
+      logger.debug(
+          "lets check the nodes[{}] = ({}, {})",
+          i,
+          nodesDb.get(i).getParent(),
+          nodesDb.get(i).getChild());
       mapDFS = d.link(mapDFS, nodesDb.get(i).getParent(), nodesDb.get(i).getChild());
     }
     path = d.dfs(mapDFS, "X", "G" + classSubjectListDb.get().getGroupSlot());
@@ -126,12 +130,12 @@ public class SlotRestController extends RestControllerHelper {
 
   @GetMapping(value = "/slots/{formYear}/{subjectId}/DFS/suggest")
   public ResponseEntity<Map> showSlotForFormYearSubjectIdViaDFSsuggest(
-          @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
+      @PathVariable("formYear") int formYear, @PathVariable("subjectId") String subjectId) {
     HashMap<String, String> map = new HashMap<>();
 
     Optional<ClassSubjectList> classSubjectListDb =
-            classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
-                    subjectId, formYear);
+        classSubjectListService.classSubjectListRepo.findBySubjectIdAndFormYear(
+            subjectId, formYear);
 
     // Get all nodes
     List<Nodes> nodesDb = nodeService.nodeRepo.findAll();
@@ -141,7 +145,8 @@ public class SlotRestController extends RestControllerHelper {
 
     // Some fun with statistics
     logger.debug("we have {} total node stored", nodesDb.size());
-    logger.debug("we have {} parent node to process", nodeService.nodeRepo.sizeParentSubject(subjectId));
+    logger.debug(
+        "we have {} parent node to process", nodeService.nodeRepo.sizeParentSubject(subjectId));
 
     // grab parent,child and link!
     DepthFirstSearch d = new DepthFirstSearch();
@@ -151,12 +156,13 @@ public class SlotRestController extends RestControllerHelper {
 
     for (int i = 0; i < nodesDb.size(); i++) {
       if (nodesDb.get(i).getSlotId() != null) {
-        //logger.debug(" node --> {}",nodesDb.get(i).getSlotId());
-        //logger.debug(" slot --> {}",slotsDb.size());
+        // logger.debug(" node --> {}",nodesDb.get(i).getSlotId());
+        // logger.debug(" slot --> {}",slotsDb.size());
         for (int j = 0; j < slotsDb.size(); j++) {
-          //logger.debug("check slot => {} ",slotsDb.get(j).getId());
+          // logger.debug("check slot => {} ",slotsDb.get(j).getId());
           if (nodesDb.get(i).getSlotId().equalsIgnoreCase(slotsDb.get(j).getId())) {
-            logger.debug("check me => {} / {} ", nodesDb.get(i).getSlotId(), slotsDb.get(j).getId());
+            logger.debug(
+                "check me => {} / {} ", nodesDb.get(i).getSlotId(), slotsDb.get(j).getId());
             if (!slotsDb.get(j).isBooked() && slotsDb.get(j).isActive()) {
               map.put("slotId", slotsDb.get(j).getId());
               map.put("slot name", slotsDb.get(j).getName());
@@ -168,10 +174,9 @@ public class SlotRestController extends RestControllerHelper {
           }
         }
       }
-
     }
 
-    //map.putAll(SendStatusSuccess("Slot available (Picked by DFS), don't forget to book"));
+    // map.putAll(SendStatusSuccess("Slot available (Picked by DFS), don't forget to book"));
     return new ResponseEntity<>(map, HttpStatus.OK);
   }
 }
