@@ -1,20 +1,27 @@
 language: java
 jdk:
   - oraclejdk11
+
+addons:
+  sonarcloud:
+    organization: "robbinespu"
+    token:
+      secure: "1UXKZu/VfCwDEhPVDkOmTUip/NAJHc/Wam5sBM4NYPWUhOSYtvf1Z2RLYuqUYs+oie83VSWnnYnrjX9T0GlY3pQuZcqLPUqVDvV384K8XJujQCZvWkzlnvu21LCZn8te8K9nVw+96qWf7rJT6JIMIn5+SUBjcMuLvK+kfMfVGJmIz/Cgn27YFsOieH3vY3SHV2J1NvxZka+U3IrRshiEeC5yIANzq59b2Zwe80PmF0UeQVz8s3ZDDkPBvyNgWsVRwhSV6xGXYh8rcM8N2/I8D+pUgQxjxTRu8r9DwIFozO7ojv/CBOIcZlOYGao6JC8FmakUfoxo9R9b/l+y+v0CHN9VGe+pPUEoQJoEKLrxxsgtvIGpenck17KoIyjUONQUbyE1EX/O4gXFbDLRbJK+WFRvzfxPuqW7Ulg3xJz/UfygAbVqdOyVEwvO1hVL6MkCmxHd8vrEoYEQ0fb++XJmznKiqKGZRvXTLM7JV3UFkMouNGfKlVaXrkL6IpA2syRbln27HbUd5rD9Lpfmh2wSxlIgz5+JXYZiqRt81mxk/u14F7V129e1n9AMohd1d4YJri8gsSR+7n9l4nQlX5H7SVUE8S6esBTBGGKpCAaFsANYSofzN5bTX06K1cmf57Z5qL2llREsYwVc2eXBl+zsjNClp1K9Dp+1ngCmw9wLlhk="
+
 before_install:
   - docker-compose -f docker-compose.yml up -d
 script:
   - mvn clean install -DskipTests=true
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=RobbiNespu_ESS
 after_success:
   # Generate test coverage report
   - mvn test
-
   # Install deepsource CLI
   - curl https://deepsource.io/cli | sh
-
   # From the root directory, run the report coverage command
   # This example is with respect to Gradle.
   # The report directory will be different for Maven.
   - ./bin/deepsource report --analyzer test-coverage --key java --value-file ./target/site/jacoco/jacoco.xml
   - bash <(curl -s https://codecov.io/bash)
+
 
