@@ -5,3 +5,4 @@ ESS: Exam Scheduling System using Depth First Search
 [![codecov](https://codecov.io/gh/RobbiNespu/ESS/branch/master/graph/badge.svg)](https://codecov.io/gh/RobbiNespu/ESS)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![lifecycle](https://lifecycle.r-lib.org/articles/figures/lifecycle-experimental.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/dashboard?id=RobbiNespu_ESS)
