@@ -13,6 +13,8 @@ package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -53,13 +55,18 @@ public class Users implements Serializable {
 
   private String department;
 
-  @Column(nullable = true, name = "email")
+  @Column(nullable = false, name = "email")
   private String email;
 
+  @Column(unique = true)
   private String username;
+
   private String password;
 
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "roles_Id")
   private Roles roles;
+
+  @ManyToMany(targetEntity = Level.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  private Set<Level> level = new HashSet<>();
 }
