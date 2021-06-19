@@ -1,7 +1,6 @@
 ESS: Exam Scheduling System using Depth First Search
 ----------------------------------------------------------------------------
 [![Build Status](https://travis-ci.com/RobbiNespu/ESS.svg?branch=master)](https://travis-ci.com/RobbiNespu/ESS)
-[![Build status](https://ci.appveyor.com/api/projects/status/mlj7dtgd4c0iysbl?svg=true)](https://ci.appveyor.com/project/RobbiNespu/ess)
 [![codecov](https://codecov.io/gh/RobbiNespu/ESS/branch/master/graph/badge.svg)](https://codecov.io/gh/RobbiNespu/ESS)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![Maintainability](https://api.codeclimate.com/v1/badges/660a015a7984d78a8de2/maintainability)](https://codeclimate.com/github/RobbiNespu/ESS/maintainability)
