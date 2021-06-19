@@ -11,14 +11,19 @@
 
 package io.robbinespu.ess.model;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,15 +31,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @Table(name = "level")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Level implements Serializable {
 
-  @Id
-  @Column(name = "level_id")
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
+    @Id
+    @Column(name = "level_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
 
-  private String power;
+    private String power;
 
-  @ManyToMany(targetEntity = Users.class, mappedBy = "level", cascade = CascadeType.ALL)
-  private Set<Users> users = new HashSet<>();
+    @ManyToMany(targetEntity = Users.class, mappedBy = "level", cascade = CascadeType.ALL)
+    @JsonIdentityReference
+    @JsonIgnore
+    private Set<Users> users = new HashSet<>();
 }
