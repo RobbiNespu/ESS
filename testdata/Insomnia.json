@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2021-05-29T13:28:10.799Z",
+  "__export_date": "2021-06-19T06:19:18.838Z",
   "__export_source": "insomnia.desktop.app:v2021.3.0",
   "resources": [
     {
@@ -46,7 +46,7 @@
     {
       "_id": "req_e703ab0deca647d19f4f0f2aef82a9df",
       "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
-      "modified": 1622178385004,
+      "modified": 1624080181246,
       "created": 1621936802492,
       "url": "localhost:9000/api/users",
       "name": "Add user (student F1)",
@@ -54,7 +54,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"name\": \"ahmad\",\n\t\"email\": \"ahmad@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"student\",\n\t\t\"forms\": {\n\t\t\t\"name\": \"F1K1\",\n\t\t\t\"formYear\": 1\n\t\t}\n\t},\n\t\"username\": \"ahmad\",\n\t\"password\": \"pass12345\"\n}"
+        "text": "{\n\t\"name\": \"ahmad\",\n\t\"email\": \"ahmad@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"student\",\n\t\t\"forms\": {\n\t\t\t\"name\": \"F1K1\",\n\t\t\t\"formYear\": 1\n\t\t}\n\t},\n\t\"username\": \"ahmad\",\n\t\"password\": \"pass12345\",\n\t\"level\": [\n\t\t{\n\t\t\t\"power\": \"user\"\n\t\t}\n\t]\n}"
       },
       "parameters": [],
       "headers": [
@@ -84,7 +84,7 @@
     {
       "_id": "req_5c81816c8b43402497c551fd07060cf5",
       "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
-      "modified": 1622178378497,
+      "modified": 1624080187027,
       "created": 1622135063661,
       "url": "localhost:9000/api/users",
       "name": "Add user (student F2)",
@@ -92,7 +92,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"name\": \"shizuka\",\n\t\"email\": \"shizuka@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"student\",\n\t\t\"forms\": {\n\t\t\t\"name\": \"F2K1\",\n\t\t\t\"formYear\": 2\n\t\t}\n\t},\n\t\"username\": \"shizuka\",\n\t\"password\": \"pass12345\"\n}"
+        "text": "{\n\t\"name\": \"shizuka\",\n\t\"email\": \"shizuka@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"student\",\n\t\t\"forms\": {\n\t\t\t\"name\": \"F2K1\",\n\t\t\t\"formYear\": 2\n\t\t}\n\t},\n\t\"username\": \"shizuka\",\n\t\"password\": \"pass12345\",\n\t\"level\": [\n\t\t{\n\t\t\t\"power\": \"user\"\n\t\t}\n\t]\n}"
       },
       "parameters": [],
       "headers": [
@@ -122,7 +122,7 @@
     {
       "_id": "req_e067fb7909a847e9bcd54cb1eecfb4c3",
       "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
-      "modified": 1622178373730,
+      "modified": 1624080191340,
       "created": 1621936922251,
       "url": "localhost:9000/api/users",
       "name": "Add teacher",
@@ -130,7 +130,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"name\": \"suraya\",\n\t\"email\": \"suraya@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"teacher\"\n\t},\n\t\"username\": \"suraya\",\n\t\"password\": \"pass12345\"\n}"
+        "text": "{\n\t\"name\": \"suraya\",\n\t\"email\": \"suraya@test.com\",\n\t\"roles\": {\n\t\t\"type\": \"teacher\"\n\t},\n\t\"username\": \"suraya\",\n\t\"password\": \"pass12345\",\n\t\"level\": [\n\t\t{\n\t\t\t\"power\": \"user\"\n\t\t}\n\t]\n}"
       },
       "parameters": [],
       "headers": [
@@ -489,20 +489,20 @@
     {
       "_id": "jar_337faa5cd512b74784e2913c8afdccadad5046b7",
       "parentId": "wrk_14781cb40fd94122a0cbdc00b1484a4f",
-      "modified": 1622290484881,
+      "modified": 1624076510036,
       "created": 1621936680379,
       "name": "Default Jar",
       "cookies": [
         {
           "key": "JSESSIONID",
-          "value": "2E29FF8C73A79DF5389DB3F75927CDEB",
+          "value": "F278E09BD42E9FA70ED93622AEC16191",
           "domain": "localhost",
           "path": "/",
           "httpOnly": true,
           "hostOnly": true,
           "creation": "2021-05-25T09:59:10.600Z",
-          "lastAccessed": "2021-05-29T12:14:44.880Z",
-          "id": "9550233462982685"
+          "lastAccessed": "2021-06-19T04:21:50.035Z",
+          "id": "9448082734067247"
         }
       ],
       "_type": "cookie_jar"
