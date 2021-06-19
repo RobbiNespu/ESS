@@ -12,15 +12,14 @@
 package io.robbinespu.ess.service;
 
 import io.robbinespu.ess.model.Level;
-
 import java.util.Optional;
 
 public interface ILevelService {
-    Optional<Level> findById(Long id);
+  Optional<Level> findById(Long id);
 
-    Optional<Level> findByPower(String power);
+  Optional<Level> findByPower(String power);
 
-    Level save(Level std);
+  Level save(Level std);
 
-    void deleteById(Long id);
+  void deleteById(Long id);
 }
