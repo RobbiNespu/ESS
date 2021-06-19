@@ -11,6 +11,7 @@
 
 package io.robbinespu.ess.repo;
 
+import io.robbinespu.ess.model.Level;
 import io.robbinespu.ess.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,16 +21,14 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface UserRepo extends JpaRepository<Users, String> {
+public interface LevelRepo extends JpaRepository<Level, String> {
     // Query method
-    Optional<Users> findByEmail(String email);
+    Optional<Level> findById(Long id);
 
-    void deleteById(String id);
+    Optional<Level> findByPower(String power);
 
-    @Query(value = "select nextval(SEQ_user)", nativeQuery = true)
-    public Long getNextValFromSeq();
+    void deleteById(Long id);
 
-    @Query("SELECT u FROM Users u WHERE u.username = :username")
-    public Users getUserByUsername(@Param("username") String username);
-
+    @Query("SELECT lvl FROM Level lvl WHERE lvl.power = :power")
+    public Users getLevelByPower(@Param("power") String power);
 }
