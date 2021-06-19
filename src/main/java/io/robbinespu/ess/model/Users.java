@@ -12,20 +12,19 @@
 package io.robbinespu.ess.model;
 
 import io.robbinespu.ess.util.CustomSeqGeneratorIdForUser;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 @Getter
 @Setter

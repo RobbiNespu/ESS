@@ -13,39 +13,38 @@ package io.robbinespu.ess.service;
 
 import io.robbinespu.ess.model.Level;
 import io.robbinespu.ess.repo.LevelRepo;
+import java.util.Optional;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
-import java.util.Optional;
 
 @Service
 @Transactional(rollbackOn = Exception.class)
 public class LevelService implements ILevelService {
-    public final LevelRepo levelRepo;
+  public final LevelRepo levelRepo;
 
-    @Autowired
-    public LevelService(LevelRepo levelRepo) {
-        this.levelRepo = levelRepo;
-    }
+  @Autowired
+  public LevelService(LevelRepo levelRepo) {
+    this.levelRepo = levelRepo;
+  }
 
-    @Override
-    public Optional<Level> findById(Long id) {
-        return levelRepo.findById(id);
-    }
+  @Override
+  public Optional<Level> findById(Long id) {
+    return levelRepo.findById(id);
+  }
 
-    @Override
-    public Optional<Level> findByPower(String power) {
-        return levelRepo.findByPower(power);
-    }
+  @Override
+  public Optional<Level> findByPower(String power) {
+    return levelRepo.findByPower(power);
+  }
 
-    @Override
-    public Level save(Level lvl) {
-        return levelRepo.save(lvl);
-    }
+  @Override
+  public Level save(Level lvl) {
+    return levelRepo.save(lvl);
+  }
 
-    @Override
-    public void deleteById(Long id) {
-        levelRepo.deleteById(id);
-    }
+  @Override
+  public void deleteById(Long id) {
+    levelRepo.deleteById(id);
+  }
 }

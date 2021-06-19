@@ -13,22 +13,21 @@ package io.robbinespu.ess.repo;
 
 import io.robbinespu.ess.model.Level;
 import io.robbinespu.ess.model.Users;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface LevelRepo extends JpaRepository<Level, String> {
-    // Query method
-    Optional<Level> findById(Long id);
+  // Query method
+  Optional<Level> findById(Long id);
 
-    Optional<Level> findByPower(String power);
+  Optional<Level> findByPower(String power);
 
-    void deleteById(Long id);
+  void deleteById(Long id);
 
-    @Query("SELECT lvl FROM Level lvl WHERE lvl.power = :power")
-    public Users getLevelByPower(@Param("power") String power);
+  @Query("SELECT lvl FROM Level lvl WHERE lvl.power = :power")
+  public Users getLevelByPower(@Param("power") String power);
 }
